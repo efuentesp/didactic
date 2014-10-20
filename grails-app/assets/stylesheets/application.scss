@@ -1,0 +1,23 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require_self
+*= require form-signin
+*= require navbar-profile
+*/
+
+@import '../vendor/bootstrap-sass-official/assets/stylesheets/bootstrap';
+$fa-font-path: '../vendor/font-awesome/fonts';
+@import '../vendor/font-awesome/scss/font-awesome';
+
+body {
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+

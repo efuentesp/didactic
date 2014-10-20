@@ -1,0 +1,73 @@
+{
+    permissions: [
+        {
+            module: 'DIDACTIC',
+            code: 'EDUCATIONAL_INSTITUTION_ROLLUP_MANAGEMENT',
+            title: 'Administer Educational Institutions rollup',
+            description: 'Give to trusted roles only; this permission has security implications.',
+            domain: 'school',
+            actions: '*',
+            instances: '*',
+            restricted: true
+        },
+    ],
+
+    roles: [
+        {
+            name: 'SCHOOL_ADMIN',
+            description: 'Assigned to users who are considered to be Administrators for an Educational Institution',
+            restricted: true,
+        },
+        {
+            name: 'PROFESSOR',
+            description: 'Assigned to users who are considered Professors',
+            restricted: true,
+        },
+        {
+            name: 'STUDENT',
+            description: 'Assigned to users who are considered Students',
+            restricted: true,
+        },
+        {
+            name: 'ASSESSOR',
+            description: 'Assigned to users who are considered Assessors',
+            restricted: true,
+        },
+    ],
+
+    users: [
+        {
+            username: 'schooladmin1',
+            password: 'school',
+            name: 'School Admin 1',
+            email: 'schooladmin1@mail.com',
+            enabled: true,
+            roles: [ 'SCHOOL_ADMIN' ]
+        },
+        {
+            username: 'professor1',
+            password: 'teacher',
+            name: 'Teacher 1',
+            email: 'professor1@mail.com',
+            enabled: true,
+            roles: [ 'PROFESSOR' ]
+        },
+        {
+            username: 'student1',
+            password: 'student',
+            name: 'Student 1',
+            email: 'student1@mail.com',
+            enabled: true,
+            roles: [ 'STUDENT' ]
+        },
+        {
+            username: 'assessor1',
+            password: 'assessor',
+            name: 'Assessor 1',
+            email: 'assessor1@mail.com',
+            enabled: true,
+            roles: [ 'ASSESSOR' ]
+        },
+    ]
+
+}

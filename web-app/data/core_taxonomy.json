@@ -1,0 +1,165 @@
+{
+  vocabularies: [
+    {
+      code: 'ORGANIZATION_TYPE',
+      name: 'Organization type',
+      description: 'Organizations Taxonomy',
+      restricted: true
+    },
+    {
+      code: 'PARTY_ROLE_TYPE',
+      name: 'Party Role type',
+      description: 'Party Roles Taxonomy',
+      restricted: true
+    },
+    {
+      code: 'PARTY_RELATIONSHIP_TYPE',
+      name: 'Party Relationships type',
+      description: 'Party Relationships Taxonomy',
+      restricted: true
+    },
+  ],
+
+  terms: [
+    {
+      vocabulary: 'ORGANIZATION_TYPE',
+      code: 'LEGAL_ORGANIZATION',
+      name: 'Legal Organization',
+      description: 'Legal Organization',
+      restricted: true,
+      weight: 10
+    },
+        {
+          vocabulary: 'ORGANIZATION_TYPE',
+          parent: 'LEGAL_ORGANIZATION',
+          code: 'CORPORATION',
+          name: 'Corporation',
+          description: 'Corporation',
+          restricted: true,
+          weight: 10
+        },
+        {
+          vocabulary: 'ORGANIZATION_TYPE',
+          parent: 'LEGAL_ORGANIZATION',
+          code: 'GOVERMENT_AGENCY',
+          name: 'Goverment Agency',
+          description: 'Goverment Agency',
+          restricted: true,
+          weight: 20
+        },
+    {
+      vocabulary: 'ORGANIZATION_TYPE',
+      code: 'INFORMAL_ORGANIZATION',
+      name: 'Informal Organization',
+      description: 'Informal Organization',
+      restricted: true,
+      weight: 20
+    },
+
+
+    {
+      vocabulary: 'PARTY_ROLE_TYPE',
+      code: 'ORGANIZATION_ROLE',
+      name: 'Organization Role',
+      description: 'Organization Role',
+      restricted: true,
+      weight: 30
+    },
+        {
+          vocabulary: 'PARTY_ROLE_TYPE',
+          parent: 'ORGANIZATION_ROLE',
+          code: 'INTERNAL_ORGANIZATION',
+          name: 'Internal Organization',
+          description: 'Internal Organization',
+          restricted: true,
+          weight: 10
+        },
+        {
+          vocabulary: 'PARTY_ROLE_TYPE',
+          parent: 'ORGANIZATION_ROLE',
+          code: 'CUSTOMER',
+          name: 'Customer',
+          description: 'Customer',
+          restricted: false,
+          weight: 20
+        },
+        {
+          vocabulary: 'PARTY_ROLE_TYPE',
+          parent: 'ORGANIZATION_ROLE',
+          code: 'ORGANIZATION_UNIT',
+          name: 'Organization Unit',
+          description: 'Organization Unit',
+          restricted: true,
+          weight: 30
+        },
+            {
+              vocabulary: 'PARTY_ROLE_TYPE',
+              parent: 'ORGANIZATION_UNIT',
+              code: 'EDUCATIONAL_INSTITUTION',
+              name: 'Educational Institution',
+              description: 'Educational Institution',
+              restricted: false,
+              weight: 10
+            },
+            {
+              vocabulary: 'PARTY_ROLE_TYPE',
+              parent: 'ORGANIZATION_UNIT',
+              code: 'CAMPUS',
+              name: 'Campus',
+              description: 'Campus',
+              restricted: false,
+              weight: 20
+            },
+            {
+              vocabulary: 'PARTY_ROLE_TYPE',
+              parent: 'ORGANIZATION_UNIT',
+              code: 'STAGE',
+              name: 'Stage',
+              description: 'Stage',
+              restricted: false,
+              weight: 30
+            },
+            {
+              vocabulary: 'PARTY_ROLE_TYPE',
+              parent: 'ORGANIZATION_UNIT',
+              code: 'GRADE',
+              name: 'Grade',
+              description: 'Grade',
+              restricted: false,
+              weight: 40
+            },
+            {
+              vocabulary: 'PARTY_ROLE_TYPE',
+              parent: 'ORGANIZATION_UNIT',
+              code: 'CLASSROOM',
+              name: 'Classroom',
+              description: 'Classroom',
+              restricted: false,
+              weight: 50
+            },
+    {
+      vocabulary: 'PARTY_RELATIONSHIP_TYPE',
+      code: 'EMPLOYMENT',
+      name: 'Employment',
+      description: 'Employment',
+      restricted: true,
+      weight: 10
+    },
+    {
+      vocabulary: 'PARTY_RELATIONSHIP_TYPE',
+      code: 'CUSTOMER_RELATIONSHIP',
+      name: 'Customer Relationship',
+      description: 'Customer Relationship',
+      restricted: true,
+      weight: 20
+    },
+    {
+      vocabulary: 'PARTY_RELATIONSHIP_TYPE',
+      code: 'ORGANIZATION_ROLLUP',
+      name: 'Organization rollup',
+      description: 'Organization rollup',
+      restricted: true,
+      weight: 30
+    },
+  ]
+}

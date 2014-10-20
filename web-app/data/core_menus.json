@@ -1,0 +1,68 @@
+{
+    menus: [
+        {
+            module: 'core',
+            name: 'menu.core.setup',
+            title: 'Setup',
+            description: '',
+            icon: 'fa-cog',
+            permission: "*",
+            parent: 'menu.core.main'
+        },
+        {
+            module: 'core',
+            name: 'menu.core.auth',
+            title: 'Auth',
+            description: 'Authentication and autherization menu',
+            icon: 'fa-lock',
+            permission: "*",
+            parent: 'menu.core.setup'
+        }
+    ],
+    items: [
+        {
+            name: 'menu.core.auth.users',
+            title: 'Users',
+            description: '',
+            icon: 'fa-user',
+            permission: 'user:*',
+            linkController: 'user',
+            linkAction: 'index',
+            menu: 'menu.core.auth',
+            weight: 10
+        },
+        {
+            name: 'menu.core.auth.roles',
+            title: 'Roles',
+            description: '',
+            icon: 'fa-users',
+            permission: 'role:*',
+            linkController: 'role',
+            linkAction: 'index',
+            menu: 'menu.core.auth',
+            weight: 20
+        },
+        {
+            name: 'menu.core.auth.permissions',
+            title: 'Permissions',
+            description: '',
+            icon: 'fa-lock',
+            permission: 'permission:*',
+            linkController: 'permission',
+            linkAction: 'index',
+            menu: 'menu.core.auth',
+            weight: 30
+        },
+        {
+            name: 'menu.core.setup.settings',
+            title: 'Settings',
+            description: '',
+            icon: 'fa-cogs',
+            permission: '*',
+            linkController: 'settings',
+            linkAction: 'index',
+            menu: 'menu.core.setup',
+            weight: 10
+        },
+    ]
+}

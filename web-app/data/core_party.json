@@ -1,0 +1,19 @@
+{
+    genders: [
+        {
+            code: 'N/A',
+            description: 'Not Available',
+            restricted: true
+        },
+        {
+            code: 'MALE',
+            description: 'Female',
+            restricted: true
+        },
+        {
+            code: 'FEMALE',
+            description: 'Male',
+            restricted: true
+        },
+    ]
+}

@@ -1,0 +1,183 @@
+{
+  organizations: [
+    {
+      name: 'Didactic Latinoamerica',
+      type: 'CORPORATION',
+      restricted: true
+    },
+    {
+      name: 'UAEM Universidad Autónoma del Estado de México',
+      type: 'GOVERMENT_AGENCY',
+      restricted: false
+    },
+    {
+      name: 'Amecameca',
+      type: 'INFORMAL_ORGANIZATION',
+      restricted: false
+    },
+    {
+      name: 'Atlacomulco',
+      type: 'INFORMAL_ORGANIZATION',
+      restricted: false
+    },
+    {
+      name: 'Cuautitlan',
+      type: 'INFORMAL_ORGANIZATION',
+      restricted: false
+    },
+    {
+      name: 'Escuela de Educación Preescolar',
+      type: 'INFORMAL_ORGANIZATION',
+      restricted: false
+    },
+    {
+      name: 'Escuela de Educación Primaria',
+      type: 'INFORMAL_ORGANIZATION',
+      restricted: false
+    },
+    {
+      name: 'Escuela de Educación Secundaria General',
+      type: 'INFORMAL_ORGANIZATION',
+      restricted: false
+    },
+    {
+      name: '1er Grado',
+      type: 'INFORMAL_ORGANIZATION',
+      restricted: false
+    },
+    {
+      name: '2do Grado',
+      type: 'INFORMAL_ORGANIZATION',
+      restricted: false
+    }
+  ],
+
+  persons: [
+    {
+      firstName: 'Diana',
+      lastName: 'Espinoza Contreras',
+      gender: 'N/A'
+    },
+    {
+      firstName: 'Cynthia Nashieelii',
+      lastName: 'Garduño Paredes',
+      gender: 'N/A'
+    },
+    {
+      firstName: 'Roxana',
+      lastName: 'Rodriguez León',
+      gender: 'N/A'
+    },
+  ],
+
+  partyRoles: [
+    {
+      type: 'INTERNAL_ORGANIZATION',
+      party: {organization: 'Didactic Latinoamerica'},
+      restricted: true
+    },
+    {
+      type: 'CUSTOMER',
+      party: {organization: 'UAEM Universidad Autónoma del Estado de México'},
+      restricted: false
+    },
+    {
+      type: 'EDUCATIONAL_INSTITUTION',
+      party: {organization: 'UAEM Universidad Autónoma del Estado de México'},
+      restricted: false
+    },
+    {
+      type: 'CAMPUS',
+      party: {organization: 'Amecameca'},
+      restricted: false
+    },
+    {
+      type: 'CAMPUS',
+      party: {organization: 'Atlacomulco'},
+      restricted: false
+    },
+    {
+      type: 'CAMPUS',
+      party: {organization: 'Cuautitlan'},
+      restricted: false
+    },
+    {
+      type: 'STAGE',
+      party: {organization: 'Escuela de Educación Preescolar'},
+      restricted: false
+    },
+    {
+      type: 'STAGE',
+      party: {organization: 'Escuela de Educación Primaria'},
+      restricted: false
+    },
+    {
+      type: 'STAGE',
+      party: {organization: 'Escuela de Educación Secundaria General'},
+      restricted: false
+    },
+    {
+      type: 'GRADE',
+      party: {organization: '1er Grado'},
+      restricted: false
+    },
+    {
+      type: 'GRADE',
+      party: {organization: '2do Grado'},
+      restricted: false
+    },   
+  ],
+
+  partyRelationships: [
+    {
+      type: 'ORGANIZATION_ROLLUP',
+      from: {organization: 'Amecameca'},
+      to: {organization: 'UAEM Universidad Autónoma del Estado de México'},
+      restricted: false
+    },
+        {
+          type: 'ORGANIZATION_ROLLUP',
+          from: {organization: 'Escuela de Educación Preescolar'},
+          to: {organization:  'Amecameca'},
+          restricted: false
+        },
+            {
+              type: 'ORGANIZATION_ROLLUP',
+              from: {organization: '1er Grado'},
+              to: {organization: 'Escuela de Educación Preescolar'},
+              restricted: false
+            },
+            {
+              type: 'ORGANIZATION_ROLLUP',
+              from: {organization: '2do Grado'},
+              to: {organization: 'Escuela de Educación Preescolar'},
+              restricted: false
+            },
+        {
+          type: 'ORGANIZATION_ROLLUP',
+          from: {organization: 'Escuela de Educación Primaria'},
+          to: {organization: 'Amecameca'},
+          restricted: false
+        },
+        {
+          type: 'ORGANIZATION_ROLLUP',
+          from: {organization: 'Escuela de Educación Secundaria General'},
+          to: {organization: 'Amecameca'},
+          restricted: false
+        },
+
+    {
+      type: 'ORGANIZATION_ROLLUP',
+      from: {organization: 'Atlacomulco'},
+      to: {organization: 'UAEM Universidad Autónoma del Estado de México'},
+      restricted: false
+    },
+    {
+      type: 'ORGANIZATION_ROLLUP',
+      from: {organization: 'Cuautitlan'},
+      to: {organization: 'UAEM Universidad Autónoma del Estado de México'},
+      restricted: false
+    },
+
+  ]
+}

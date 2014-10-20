@@ -1,0 +1,34 @@
+{
+    permissions: [
+        {
+            module: 'CORE',
+            code: 'PERMISSION_MANAGEMENT',
+            title: 'Administer permissions',
+            description: 'Give to trusted roles only; this permission has security implications.',
+            domain: 'permission',
+            actions: '*',
+            instances: '*',
+            restricted: true
+        },
+        {
+            module: 'CORE',
+            code: 'USER_MANAGEMENT',
+            title: 'Administer users',
+            description: 'Give to trusted roles only; this permission has security implications.',
+            domain: 'user',
+            actions: '*',
+            instances: '*',
+            restricted: true
+        },
+        {
+            module: 'CORE',
+            code: 'ROLE_MANAGEMENT',
+            title: 'Administer roles',
+            description: 'Give to trusted roles only; this permission has security implications.',
+            domain: 'role',
+            actions: '*',
+            instances: '*',
+            restricted: true
+        },
+    ],
+}

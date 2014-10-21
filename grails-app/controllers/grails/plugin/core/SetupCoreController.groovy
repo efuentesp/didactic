@@ -233,6 +233,22 @@ class SetupCoreController {
                 ).save(failOnError: true)
     }
 
+    // Geographic Boundaries
+    json.geographicBoundaries.each { geo ->
+      def geographicBoundary = new GeographicBoundary(code: geo.code,
+                                                        name: geo.name,
+                                                        abbreviation: geo.abbreviation,
+                                                        type: Term.findByCode(geo.type),
+                                                        parent: GeographicBoundary.findByCode(geo.parent)
+                                                       )
+      if (!geographicBoundary.save()) {
+        log.error "Unable to create Geographic Boundary: ${geographicBoundary}."
+        geographicBoundary.errors.each { log.error it }
+
+        throw new RuntimeException("Unable to create Geographic Boundary: ${geographicBoundary}.")
+      }
+    }
+
     // Organizations
     json.organizations.each { org ->
       def organization = new Organization(name: org.name,

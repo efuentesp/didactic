@@ -15,5 +15,49 @@
             description: 'Male',
             restricted: true
         },
+    ],
+
+    geographicBoundaries: [
+        {
+            code: 'MX',
+            name: 'México',
+            abbreviation: 'Mex',
+            type: 'COUNTRY'
+        },
+        {
+            code: 'MX-DIF',
+            name: 'Distrito Federal',
+            abbreviation: 'D.F.',
+            type: 'STATE',
+            parent: 'MX'
+        },
+        {
+            code: 'MX-MEX',
+            name: 'Estado de México',
+            abbreviation: 'Edo. Mex.',
+            type: 'STATE',
+            parent: 'MX'
+        },
+        {
+            code: 'MX-MEX-009',
+            name: 'Amecameca',
+            abbreviation: 'Amec.',
+            type: 'MUNICIPALITY',
+            parent: 'MX-MEX'
+        },
+        {
+            code: 'MX-MEX-020',
+            name: 'Coacalco',
+            abbreviation: 'Coac.',
+            type: 'MUNICIPALITY',
+            parent: 'MX-MEX'
+        },
+        {
+            code: 'MX-MEX-042',
+            name: 'Ixtlahuaca',
+            abbreviation: 'Ixtla.',
+            type: 'MUNICIPALITY',
+            parent: 'MX-MEX'
+        },
     ]
 }

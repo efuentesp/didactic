@@ -1,6 +1,12 @@
 {
   vocabularies: [
     {
+      code: 'GEOGRAPHIC_BOUNDARY_TYPE',
+      name: 'Geographic Boundary type',
+      description: 'Geographic Boundary Taxonomy',
+      restricted: true
+    },
+    {
       code: 'ORGANIZATION_TYPE',
       name: 'Organization type',
       description: 'Organizations Taxonomy',
@@ -21,6 +27,30 @@
   ],
 
   terms: [
+    {
+      vocabulary: 'GEOGRAPHIC_BOUNDARY_TYPE',
+      code: 'COUNTRY',
+      name: 'Country',
+      description: 'Country',
+      restricted: true,
+      weight: 10
+    },
+    {
+      vocabulary: 'GEOGRAPHIC_BOUNDARY_TYPE',
+      code: 'STATE',
+      name: 'State',
+      description: 'State',
+      restricted: true,
+      weight: 10
+    },
+    {
+      vocabulary: 'GEOGRAPHIC_BOUNDARY_TYPE',
+      code: 'MUNICIPALITY',
+      name: 'Municipality',
+      description: 'Municipality',
+      restricted: true,
+      weight: 10
+    },
     {
       vocabulary: 'ORGANIZATION_TYPE',
       code: 'LEGAL_ORGANIZATION',
@@ -53,6 +83,14 @@
       name: 'Informal Organization',
       description: 'Informal Organization',
       restricted: true,
+      weight: 20
+    },
+    {
+      vocabulary: 'ORGANIZATION_TYPE',
+      code: 'EDUCATIONAL_SERVICE_PROVIDER',
+      name: 'Educational Service Provider',
+      description: 'Educational Service Provider',
+      restricted: false,
       weight: 20
     },
 

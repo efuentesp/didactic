@@ -49,6 +49,18 @@
       name: '2do Grado',
       type: 'INFORMAL_ORGANIZATION',
       restricted: false
+    },
+    {
+      name: 'Jaime Torres Bodet',
+      type: 'EDUCATIONAL_SERVICE_PROVIDER',
+      restricted: false,
+      partyPostalAddress: {
+        postalAddress: {
+          address1: 'El Junco S/N',
+          address2: 'Ixtlahuaca de Rayón',
+          geographicBoundary: 'MX-MEX-042'
+        }
+      }
     }
   ],
 
@@ -114,6 +126,11 @@
     {
       type: 'STAGE',
       party: {organization: 'Escuela de Educación Secundaria General'},
+      restricted: false
+    },
+    {
+      type: 'EDUCATIONAL_INSTITUTION',
+      party: {organization: 'Jaime Torres Bodet'},
       restricted: false
     },
     {

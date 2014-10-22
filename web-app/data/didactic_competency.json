@@ -1,0 +1,20 @@
+{
+  frameworks: [
+    {
+      code: 'DIDACTIC',
+      name: 'Didactic Framework',
+      description: 'Didactic Framework'
+    }
+  ],
+
+  models: [
+    {
+      framework: 'DIDACTIC'
+      code: '',
+      name: '',
+      description: ''
+    }
+  ],
+
+  
+}

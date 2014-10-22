@@ -1,4 +1,12 @@
 {
+    partyRoles: [
+        {
+          type: 'INTERNAL_ORGANIZATION',
+          party: {organization: 'Didactic Latinoamerica'},
+          restricted: true
+        }
+    ],
+
     genders: [
         {
             code: 'N/A',

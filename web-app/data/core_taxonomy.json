@@ -41,7 +41,7 @@
       name: 'State',
       description: 'State',
       restricted: true,
-      weight: 10
+      weight: 20
     },
     {
       vocabulary: 'GEOGRAPHIC_BOUNDARY_TYPE',
@@ -49,8 +49,10 @@
       name: 'Municipality',
       description: 'Municipality',
       restricted: true,
-      weight: 10
+      weight: 30
     },
+
+
     {
       vocabulary: 'ORGANIZATION_TYPE',
       code: 'LEGAL_ORGANIZATION',
@@ -91,17 +93,34 @@
       name: 'Educational Service Provider',
       description: 'Educational Service Provider',
       restricted: false,
-      weight: 20
+      weight: 30
     },
 
 
+    {
+      vocabulary: 'PARTY_ROLE_TYPE',
+      code: 'PERSON_ROLE',
+      name: 'Person Role',
+      description: 'Person Role',
+      restricted: true,
+      weight: 10
+    },
+        {
+          vocabulary: 'PARTY_ROLE_TYPE',
+          parent: 'PERSON_ROLE',
+          code: 'EMPLOYEE',
+          name: 'Employee',
+          description: 'Employee',
+          restricted: true,
+          weight: 10
+        },
     {
       vocabulary: 'PARTY_ROLE_TYPE',
       code: 'ORGANIZATION_ROLE',
       name: 'Organization Role',
       description: 'Organization Role',
       restricted: true,
-      weight: 30
+      weight: 20
     },
         {
           vocabulary: 'PARTY_ROLE_TYPE',
@@ -115,71 +134,27 @@
         {
           vocabulary: 'PARTY_ROLE_TYPE',
           parent: 'ORGANIZATION_ROLE',
-          code: 'CUSTOMER',
-          name: 'Customer',
-          description: 'Customer',
-          restricted: false,
-          weight: 20
-        },
-        {
-          vocabulary: 'PARTY_ROLE_TYPE',
-          parent: 'ORGANIZATION_ROLE',
           code: 'ORGANIZATION_UNIT',
           name: 'Organization Unit',
           description: 'Organization Unit',
           restricted: true,
-          weight: 30
+          weight: 20
         },
-            {
-              vocabulary: 'PARTY_ROLE_TYPE',
-              parent: 'ORGANIZATION_UNIT',
-              code: 'EDUCATIONAL_INSTITUTION',
-              name: 'Educational Institution',
-              description: 'Educational Institution',
-              restricted: false,
-              weight: 10
-            },
-            {
-              vocabulary: 'PARTY_ROLE_TYPE',
-              parent: 'ORGANIZATION_UNIT',
-              code: 'CAMPUS',
-              name: 'Campus',
-              description: 'Campus',
-              restricted: false,
-              weight: 20
-            },
-            {
-              vocabulary: 'PARTY_ROLE_TYPE',
-              parent: 'ORGANIZATION_UNIT',
-              code: 'STAGE',
-              name: 'Stage',
-              description: 'Stage',
-              restricted: false,
-              weight: 30
-            },
-            {
-              vocabulary: 'PARTY_ROLE_TYPE',
-              parent: 'ORGANIZATION_UNIT',
-              code: 'GRADE',
-              name: 'Grade',
-              description: 'Grade',
-              restricted: false,
-              weight: 40
-            },
-            {
-              vocabulary: 'PARTY_ROLE_TYPE',
-              parent: 'ORGANIZATION_UNIT',
-              code: 'CLASSROOM',
-              name: 'Classroom',
-              description: 'Classroom',
-              restricted: false,
-              weight: 50
-            },
+    {
+      vocabulary: 'PARTY_ROLE_TYPE',
+      code: 'CUSTOMER',
+      name: 'Customer',
+      description: 'Customer',
+      restricted: false,
+      weight: 30
+    },
+
+
     {
       vocabulary: 'PARTY_RELATIONSHIP_TYPE',
-      code: 'EMPLOYMENT',
-      name: 'Employment',
-      description: 'Employment',
+      code: 'EMPLOYMENT_RELATIONSHIP',
+      name: 'Employment Relationship',
+      description: 'Employment Relationship',
       restricted: true,
       weight: 10
     },

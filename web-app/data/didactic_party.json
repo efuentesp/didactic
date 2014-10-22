@@ -11,55 +11,18 @@
       restricted: false
     },
     {
-      name: 'Amecameca',
-      type: 'INFORMAL_ORGANIZATION',
-      restricted: false
-    },
-    {
-      name: 'Atlacomulco',
-      type: 'INFORMAL_ORGANIZATION',
-      restricted: false
-    },
-    {
-      name: 'Cuautitlan',
-      type: 'INFORMAL_ORGANIZATION',
-      restricted: false
-    },
-    {
-      name: 'Escuela de Educación Preescolar',
-      type: 'INFORMAL_ORGANIZATION',
-      restricted: false
-    },
-    {
-      name: 'Escuela de Educación Primaria',
-      type: 'INFORMAL_ORGANIZATION',
-      restricted: false
-    },
-    {
-      name: 'Escuela de Educación Secundaria General',
-      type: 'INFORMAL_ORGANIZATION',
-      restricted: false
-    },
-    {
-      name: '1er Grado',
-      type: 'INFORMAL_ORGANIZATION',
-      restricted: false
-    },
-    {
-      name: '2do Grado',
-      type: 'INFORMAL_ORGANIZATION',
+      name: 'SEP Estado de México',
+      type: 'GOVERMENT_AGENCY',
       restricted: false
     },
     {
       name: 'Jaime Torres Bodet',
       type: 'EDUCATIONAL_SERVICE_PROVIDER',
       restricted: false,
-      partyPostalAddress: {
-        postalAddress: {
-          address1: 'El Junco S/N',
-          address2: 'Ixtlahuaca de Rayón',
-          geographicBoundary: 'MX-MEX-042'
-        }
+      postalAddress: {
+        address1: 'El Junco S/N',
+        address2: 'Ixtlahuaca de Rayón',
+        geographicBoundary: 'MX-MEX-042'
       }
     }
   ],
@@ -80,14 +43,14 @@
       lastName: 'Rodriguez León',
       gender: 'N/A'
     },
+    {
+      firstName: 'Susana',
+      lastName: 'Meza Alcántara',
+      gender: 'N/A'
+    },
   ],
 
   partyRoles: [
-    {
-      type: 'INTERNAL_ORGANIZATION',
-      party: {organization: 'Didactic Latinoamerica'},
-      restricted: true
-    },
     {
       type: 'CUSTOMER',
       party: {organization: 'UAEM Universidad Autónoma del Estado de México'},
@@ -95,106 +58,47 @@
     },
     {
       type: 'EDUCATIONAL_INSTITUTION',
-      party: {organization: 'UAEM Universidad Autónoma del Estado de México'},
+      party: {organization: 'SEP Estado de México'},
       restricted: false
     },
+
+
+    {
+      type: 'EMPLOYEE',
+      party: {
+        person: {firstName: 'Susana', lastName: 'Meza Alcántara'}
+      },
+      restricted: false,
+      code: '964347386',
+      email: 'anasus2002@live.com'
+    },
+
+
     {
       type: 'CAMPUS',
-      party: {organization: 'Amecameca'},
-      restricted: false
-    },
-    {
-      type: 'CAMPUS',
-      party: {organization: 'Atlacomulco'},
-      restricted: false
-    },
-    {
-      type: 'CAMPUS',
-      party: {organization: 'Cuautitlan'},
-      restricted: false
-    },
-    {
-      type: 'STAGE',
-      party: {organization: 'Escuela de Educación Preescolar'},
-      restricted: false
-    },
-    {
-      type: 'STAGE',
-      party: {organization: 'Escuela de Educación Primaria'},
-      restricted: false
-    },
-    {
-      type: 'STAGE',
-      party: {organization: 'Escuela de Educación Secundaria General'},
-      restricted: false
-    },
-    {
-      type: 'EDUCATIONAL_INSTITUTION',
       party: {organization: 'Jaime Torres Bodet'},
-      restricted: false
+      restricted: false,
+      code: '15DBP0002W',
+      area: 'URBAN',
+      control: 'PUBLIC',
+      service: 'BACHILLERATO_GENERAL'
     },
-    {
-      type: 'GRADE',
-      party: {organization: '1er Grado'},
-      restricted: false
-    },
-    {
-      type: 'GRADE',
-      party: {organization: '2do Grado'},
-      restricted: false
-    },   
   ],
 
   partyRelationships: [
     {
       type: 'ORGANIZATION_ROLLUP',
-      from: {organization: 'Amecameca'},
-      to: {organization: 'UAEM Universidad Autónoma del Estado de México'},
-      restricted: false
-    },
-        {
-          type: 'ORGANIZATION_ROLLUP',
-          from: {organization: 'Escuela de Educación Preescolar'},
-          to: {organization:  'Amecameca'},
-          restricted: false
-        },
-            {
-              type: 'ORGANIZATION_ROLLUP',
-              from: {organization: '1er Grado'},
-              to: {organization: 'Escuela de Educación Preescolar'},
-              restricted: false
-            },
-            {
-              type: 'ORGANIZATION_ROLLUP',
-              from: {organization: '2do Grado'},
-              to: {organization: 'Escuela de Educación Preescolar'},
-              restricted: false
-            },
-        {
-          type: 'ORGANIZATION_ROLLUP',
-          from: {organization: 'Escuela de Educación Primaria'},
-          to: {organization: 'Amecameca'},
-          restricted: false
-        },
-        {
-          type: 'ORGANIZATION_ROLLUP',
-          from: {organization: 'Escuela de Educación Secundaria General'},
-          to: {organization: 'Amecameca'},
-          restricted: false
-        },
-
-    {
-      type: 'ORGANIZATION_ROLLUP',
-      from: {organization: 'Atlacomulco'},
-      to: {organization: 'UAEM Universidad Autónoma del Estado de México'},
-      restricted: false
-    },
-    {
-      type: 'ORGANIZATION_ROLLUP',
-      from: {organization: 'Cuautitlan'},
-      to: {organization: 'UAEM Universidad Autónoma del Estado de México'},
+      from: {organization: 'Jaime Torres Bodet'},
+      to: {organization: 'SEP Estado de México'},
       restricted: false
     },
 
+
+    {
+      type: 'EMPLOYMENT',
+      from: {organization: 'Jaime Torres Bodet'},
+      to: {employee: '15DBP0002W'},
+      restricted: false
+    },
   ]
 }

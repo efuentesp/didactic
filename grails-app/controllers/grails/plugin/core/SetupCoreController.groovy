@@ -5,6 +5,7 @@ import grails.plugin.core.taxonomy.*
 import grails.plugin.core.party.*
 import grails.plugin.core.menu.*
 import grails.plugin.hr.party.*
+import grails.plugin.hr.competency.*
 
 import grails.converters.JSON
 
@@ -391,7 +392,7 @@ class SetupCoreController {
       type = Term.findByCode(pr.type)
       if (!type) {
         log.error "Unable to retrieve Party Relationship type: ${pr.type}."
-        throw new RuntimeException("UUnable to retrieve Party Relationship type: ${pr.type}.")
+        throw new RuntimeException("Unable to retrieve Party Relationship type: ${pr.type}.")
       }
 
       def partyRelationship = new PartyRelationship(fromPartyRole: from,
@@ -405,6 +406,108 @@ class SetupCoreController {
         partyRelationship.errors.each { log.error it }
 
         throw new RuntimeException("Unable to create party relationship: ${partyRelationship}.")
+      }
+    }
+
+    [json: json]
+  }
+
+  def competency() {
+    println "competency: ${params}"
+    
+    def file = request.getFile('jsonCompetencyUpload')
+    //println file.inputStream.text
+    println "File content type: " + file.getContentType()
+    
+    def okcontents = ['application/json', 'application/octet-stream']
+    
+    if (! okcontents.contains(file.getContentType())) {
+      flash.message = "File must be one of: ${okcontents}, and was received: [${file.getContentType()}]"
+      render(view: 'index')
+      return;
+    }
+    
+    def json = JSON.parse(file.getInputStream(),"UTF-8")
+    
+    println json
+
+    // Competency Model
+    json.models.each { m ->
+      def competencyModel = new CompetencyModel(code: m.code,
+                                      name: m.name,
+                                      description: m.description,
+                                      restricted: m.restricted
+                                      )
+      if (!competencyModel.save()) {
+        log.error "Unable to create Competency Model: ${m.name}."
+        competencyModel.errors.each { log.error it }
+
+        throw new RuntimeException("Unable to create Competency Model: ${m.name}.")
+      }
+    }
+
+    // Competency Level
+    json.levels.each { l ->
+      def competencyModel = CompetencyModel.findByCode(l.model)
+      if (!competencyModel) {
+        log.error "Unable to retrieve Competency Model: ${l.model}."
+        throw new RuntimeException("Unable to retrieve Competency Model: ${l.model}.")
+      }
+
+
+      def competencyLevel = new CompetencyLevel(code: l.code,
+                                                name: l.name,
+                                                description: l.description,
+                                                restricted: l.restricted
+                                                )
+
+      competencyModel.addToLevels(competencyLevel)
+
+      if (!competencyModel.save()) {
+        log.error "Unable to add a Level to Competency Model: ${l.name}."
+        competencyModel.errors.each { log.error it }
+
+        throw new RuntimeException("Unable to add a Level to Competency Model: ${l.name}.")
+      }
+    }
+
+    // Competency
+    json.competencies.each { c ->
+      def competencyModel = CompetencyModel.findByCode(c.model)
+      if (!competencyModel) {
+        log.error "Unable to retrieve Competency Model: ${c.model}."
+        throw new RuntimeException("Unable to retrieve Competency Model: ${c.model}.")
+      }
+
+      def category = Term.findByCode(c.category)
+      if (!category) {
+        log.error "Unable to retrieve Competency category: ${c.category}."
+        throw new RuntimeException("Unable to retrieve Competency category: ${c.category}.")
+      }
+
+      def competency = new Competency(code: c.code,
+                                      name: c.name,
+                                      description: c.description,
+                                      category: category,
+                                      restricted: c.restricted
+                                      )
+
+      c.indicators.each { i ->
+        def competencyIndicator = new CompetencyIndicator(code: i.code,
+                                                          name: i.name,
+                                                          description: i.description,
+                                                          restricted: i.restricted
+                                                          )
+        competency.addToIndicators(competencyIndicator)
+      }
+
+      competencyModel.addToCompetencies(competency)
+
+      if (!competencyModel.save()) {
+        log.error "Unable to add a Competency to Competency Model: ${c.name}."
+        competencyModel.errors.each { log.error it }
+
+        throw new RuntimeException("Unable to add a Competency to Competency Model: ${c.name}.")
       }
     }
 

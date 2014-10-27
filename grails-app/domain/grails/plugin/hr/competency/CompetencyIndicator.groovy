@@ -1,6 +1,6 @@
-package grails.plugin.core.competency
+package grails.plugin.hr.competency
 
-class CompetencyModel implements Serializable {
+class CompetencyIndicator implements Serializable {
 
   String code
   String name
@@ -10,21 +10,20 @@ class CompetencyModel implements Serializable {
   Date dateCreated = new Date()
   Date lastUpdated = new Date()
 
-  static belongsTo = [framework: CompetencyFramework]
-
-  static hasMany = [
-    competencies: Competency
-  ]
+  static belongsTo = [competency: Competency]
 
   static constrains = {
-    framework (nullable: false)
+    competency (nullable: false)
     code (nullable: false)
     name (nullable: false)
     description (nullable: true)
-    competencies (nullable: true)
     restricted (nullable: false)
     dateCreated (nullable: true)
     lastUpdated (nullable: true)
+  }
+
+  String toString() {
+    name
   }
 
 }

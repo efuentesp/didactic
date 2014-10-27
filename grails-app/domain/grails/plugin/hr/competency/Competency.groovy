@@ -1,29 +1,37 @@
-package grails.plugin.core.competency
+package grails.plugin.hr.competency
 
-class CompetencyFramework implements Serializable {
+import grails.plugin.core.taxonomy.*
+
+class Competency implements Serializable {
 
   String code
   String name
   String description
 
+  Term category
+
   boolean restricted = false
   Date dateCreated = new Date()
   Date lastUpdated = new Date()
 
-  static hasMany = [
-    models: CompetencyModel,
-    levels: CompetencyLevel
-  ]
+  static belongsTo = [model: CompetencyModel]
+
+  static hasMany = [indicators: CompetencyIndicator]
 
   static constrains = {
+    model (nullable: false)
     code (nullable: false)
     name (nullable: false)
     description (nullable: true)
-    models (nullable: true)
-    levels (nullable: true)
+    category (nullable: false)
+    indicators (nullable: true)
     restricted (nullable: false)
     dateCreated (nullable: true)
     lastUpdated (nullable: true)
+  }
+
+  String toString() {
+    name
   }
 
 }

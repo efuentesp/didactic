@@ -1,14 +1,10 @@
-package grails.plugin.core.competency
+package grails.plugin.hr.competency
 
-import grails.plugin.core.taxonomy.*
-
-class Competency implements Serializable {
+class CompetencyLevel implements Serializable {
 
   String code
   String name
   String description
-
-  Term category
 
   boolean restricted = false
   Date dateCreated = new Date()
@@ -21,10 +17,13 @@ class Competency implements Serializable {
     code (nullable: false)
     name (nullable: false)
     description (nullable: true)
-    category (nullable: false)
     restricted (nullable: false)
     dateCreated (nullable: true)
     lastUpdated (nullable: true)
+  }
+
+  String toString() {
+    name
   }
 
 }

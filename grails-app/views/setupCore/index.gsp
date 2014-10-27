@@ -84,3 +84,23 @@
     
   </g:uploadForm>
 </fieldset>
+
+<fieldset>
+  <g:uploadForm action="competency" method="post" class="form-horizontal">
+  
+    <div class="control-group">
+      <label class="control-label">Competency:</label>
+      <div class="controls">
+        <input type="file" id="jsonCompetencyUpload" name="jsonCompetencyUpload" value="" required />
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <i class="icon-ok icon-white"></i>
+        Upload
+      </button>
+    </div>
+    
+  </g:uploadForm>
+</fieldset>

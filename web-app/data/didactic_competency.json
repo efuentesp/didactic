@@ -1,5 +1,5 @@
 {
-  frameworks: [
+  models: [
     {
       code: 'DIDACTIC',
       name: 'Didactic Framework',
@@ -7,14 +7,102 @@
     }
   ],
 
-  models: [
+  levels: [
     {
-      framework: 'DIDACTIC'
-      code: '',
-      name: '',
+      model: 'DIDACTIC',
+      code: 'DIDACTIC_01',
+      name: 'Nivel 1',
       description: ''
-    }
+    },
+    {
+      model: 'DIDACTIC',
+      code: 'DIDACTIC_02',
+      name: 'Nivel 2',
+      description: ''
+    },
+    {
+      model: 'DIDACTIC',
+      code: 'DIDACTIC_03',
+      name: 'Nivel 3',
+      description: ''
+    },
+    {
+      model: 'DIDACTIC',
+      code: 'DIDACTIC_04',
+      name: 'Nivel 4',
+      description: ''
+    },
   ],
 
-  
+  competencies: [
+    {
+      model: 'DIDACTIC'
+      code: 'SEL_CONTENIDO',
+      name: 'Selección de Contenidos',
+      description: '',
+      category: 'PLANEACION',
+      indicators: [
+        {
+          code: 'SEL_CONTENIDO_1',
+          name: 'Establece una secuencia de los contenidos que desarrollará durante la clase.',
+          description: ''
+        },
+        {
+          code: 'SEL_CONTENIDO_2',
+          name: 'Existe  relación entre aprendizaje eeperado - contenido.',
+          description: ''
+        },
+      ]
+    },
+    {
+      model: 'DIDACTIC'
+      code: 'SEL_PROPOSITO',
+      name: 'Selección de Propósito',
+      description: '',
+      category: 'PLANEACION',
+      indicators: [
+        {
+          code: 'SEL_PROPOSITO_1',
+          name: 'Formula metas de aprendizaje claras y alcanzables.',
+          description: ''
+        },
+        {
+          code: 'SEL_PROPOSITO_2',
+          name: 'Está expresando en forma positiva y en presente.',
+          description: ''
+        },
+      ]
+    },
+    {
+      model: 'DIDACTIC'
+      code: 'REL_INTERPERSONALES',
+      name: 'Relaciones Interpersonales',
+      description: '',
+      category: 'AMBIENTE_CLASE',
+      indicators: [
+        {
+          code: 'REL_INTERPERSONALES_1',
+          name: 'Diagnostica y toma en cuenta las necesidades de aprendizaje del grupo para diseñar las estrategias didácticas.',
+          description: ''
+        },
+        {
+          code: 'REL_INTERPERSONALES_2',
+          name: 'Diseña estrategias didácticas integradoras vinculando los aprendizajes esperados y los contenidos que desarrollará durante la clase.',
+          description: ''
+        },
+        {
+          code: 'REL_INTERPERSONALES_3',
+          name: 'Optimiza recursos, espacios y establece tiempos reales.',
+          description: ''
+        },
+        {
+          code: 'REL_INTERPERSONALES_4',
+          name: 'Realiza el diseño de actividades tomando en consideración la recuperación de conocimientos previos.',
+          description: ''
+        },
+      ]
+    },
+  ],
+
+
 }

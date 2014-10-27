@@ -1,0 +1,19 @@
+{
+  surveyQuestionResonses: [
+    {
+      interviewee: {
+        person: {firstName: 'Susana', lastName: 'Meza Alcántara'}
+      },
+      surveys: [
+        {
+          survey: 'NECESIDADES_CAPACITACION',
+          responses: [
+            {question: 'Q01', response: 'A02'},
+            {question: 'Q02', response: 'A04'},
+            {question: 'Q03', response: 'A01'},
+          ]
+        }
+      ]
+    },
+  ]
+}

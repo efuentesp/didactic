@@ -4,6 +4,7 @@ import grails.plugin.core.auth.*
 import grails.plugin.core.taxonomy.*
 import grails.plugin.core.party.*
 import grails.plugin.core.menu.*
+import grails.plugin.hr.party.*
 
 import grails.converters.JSON
 
@@ -281,24 +282,71 @@ class SetupCoreController {
 
     // Party Role
     json.partyRoles.each { pr ->
+      println pr
       def party
       if (pr.party.organization) {
         party = Organization.findByName(pr.party.organization)
+
+        if (!party) {
+          log.error "Unable to retrieve party: ${pr.party.organization}."
+
+          throw new RuntimeException("Unable to retrieve party: ${pr.party.organization}.")
+        }
       }
       if (pr.party.person) {
-        party = Person.findByFirstNameAndLastName(pr.party.firstName, pr.party.lastName)
+        party = Person.findByFirstNameAndLastName(pr.party.person.firstName, pr.party.person.lastName)
+
+        if (!party) {
+          log.error "Unable to retrieve party: ${pr.party.person.firstName} ${pr.party.person.lastName}."
+
+          throw new RuntimeException("Unable to retrieve party: ${pr.party.person.firstName} ${pr.party.person.lastName}.")
+        }
       }
 
-      def partyRole = new PartyRole(party: party,
+      if (pr.type == 'EMPLOYEE') {
+
+        def employee = new Employee(party: party,
                                     type: Term.findByCode(pr.type),
-                                    restricted: pr.restricted
-                                   )
+                                    restricted: pr.restricted,
+                                    code: pr.code
+                                    )
+        if (!employee.save()) {
+          log.error "Unable to create Employee: ${employee}."
+          Employee.errors.each { log.error it }
 
-      if (!partyRole.save()) {
-        log.error "Unable to create party role: ${partyRole.party}."
-        partyRole.errors.each { log.error it }
+          throw new RuntimeException("Unable to create Employee: ${employee}.")
+        }
 
-        throw new RuntimeException("Unable to create party role: ${partyRole.party}.")
+        def email = new Email(email: pr.contact.email, type: Term.findByCode(pr.contact.type))
+        if (!email.save()) {
+          log.error "Unable to create Email: ${email}."
+          Email.errors.each { log.error it }
+
+          throw new RuntimeException("Unable to create Email: ${email}.")
+        }
+
+        def employeeEmail = new PartyContactMechanism(party: employee, contactMechanism: email)
+        if (!employeeEmail.save()) {
+          log.error "Unable to create Employee Email: ${employeeEmail}."
+          PartyContactMechanism.errors.each { log.error it }
+
+          throw new RuntimeException("Unable to create Employee Email: ${employeeEmail}.")
+        }
+
+      } else {
+
+        def partyRole = new PartyRole(party: party,
+                                      type: Term.findByCode(pr.type),
+                                      restricted: pr.restricted
+                                     )
+
+        if (!partyRole.save()) {
+          log.error "Unable to create party role: ${partyRole.party}."
+          partyRole.errors.each { log.error it }
+
+          throw new RuntimeException("Unable to create party role: ${partyRole.party}.")
+        }
+
       }
     }
 
@@ -311,18 +359,21 @@ class SetupCoreController {
         fromParty = Organization.findByName(pr.from.organization)
       }
       if (pr.from.person) {
-        fromParty = Person.findByFirstNameAndLastName(pr.from.firstName, pr.from.lastName)
+        fromParty = Person.findByFirstNameAndLastName(pr.from.person.firstName, pr.from.person.lastName)
       }
+      from = PartyRole.findByParty(fromParty)
 
       if (pr.to.organization) {
         toParty = Organization.findByName(pr.to.organization)
       }
       if (pr.to.person) {
-        toParty = Person.findByFirstNameAndLastName(pr.to.firstName, pr.to.lastName)
+        toParty = Person.findByFirstNameAndLastName(pr.to.person.firstName, pr.to.person.lastName)
       }
-
-      from = PartyRole.findByParty(fromParty)
+      if (pr.to.employee) {
+        toParty = Employee.findByCode(pr.employee.code)
+      }
       to = PartyRole.findByParty(toParty)
+
       type = Term.findByCode(pr.type)
 
       def partyRelationship = new PartyRelationship(fromPartyRole: from,

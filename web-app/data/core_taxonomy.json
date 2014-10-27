@@ -24,6 +24,12 @@
       description: 'Party Relationships Taxonomy',
       restricted: true
     },
+    {
+      code: 'CONTACT_MECHANISM_TYPE',
+      name: 'Contact Mechanism type',
+      description: 'Contact Mechanism Taxonomy',
+      restricted: true
+    },
   ],
 
   terms: [
@@ -114,6 +120,16 @@
           restricted: true,
           weight: 10
         },
+        {
+          vocabulary: 'PARTY_ROLE_TYPE',
+          parent: 'PERSON_ROLE',
+          code: 'INTERVIEWEE',
+          name: 'Interviwee',
+          description: 'Interviwee',
+          restricted: true,
+          weight: 20
+        },
+
     {
       vocabulary: 'PARTY_ROLE_TYPE',
       code: 'ORGANIZATION_ROLE',
@@ -174,5 +190,32 @@
       restricted: true,
       weight: 30
     },
+
+    {
+      vocabulary: 'CONTACT_MECHANISM_TYPE',
+      code: 'EMAIL_TYPE',
+      name: 'Email type',
+      description: 'Email type',
+      restricted: true,
+      weight: 10
+    },
+      {
+        vocabulary: 'CONTACT_MECHANISM_TYPE',
+        parent: 'EMAIL_TYPE',
+        code: 'EMAIL_PERSONAL',
+        name: 'Email Personal',
+        description: 'Email Personal',
+        restricted: true,
+        weight: 10
+      },
+      {
+        vocabulary: 'CONTACT_MECHANISM_TYPE',
+        parent: 'EMAIL_TYPE',
+        code: 'EMAIL_WORK',
+        name: 'Email Work',
+        description: 'Email Work',
+        restricted: true,
+        weight: 10
+      },
   ]
 }

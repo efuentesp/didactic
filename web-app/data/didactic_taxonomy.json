@@ -24,6 +24,12 @@
       description: 'Competency category',
       restricted: false
     },
+    {
+      code: 'SURVEY_QUESTION_CATEGORY',
+      name: 'Survey Question category',
+      description: 'Survey Question category',
+      restricted: false
+    },
   ],
 
   terms: [
@@ -143,7 +149,6 @@
       weight: 50
     },
 
-
     {
       vocabulary: 'COMPETENCY_CATEGORY',
       code: 'PLANEACION',
@@ -183,6 +188,41 @@
       description: 'Evaluación',
       restricted: false,
       weight: 50
+    },
+
+    {
+      vocabulary: 'SURVEY_QUESTION_CATEGORY',
+      code: 'PLANEACION',
+      name: 'Planeación',
+      description: 'Planeación',
+      restricted: false,
+      weight: 10
+    },
+        {
+          vocabulary: 'SURVEY_QUESTION_CATEGORY',
+          parent: 'PLANEACION',
+          code: 'SELECCION_CONTENIDO',
+          name: 'Selección de Contenido',
+          description: 'Selección de Contenido',
+          restricted: false,
+          weight: 10
+        },
+        {
+          vocabulary: 'SURVEY_QUESTION_CATEGORY',
+          parent: 'PLANEACION',
+          code: 'SELECCION_PROPOSITO',
+          name: 'Selección de Propósito',
+          description: 'Selección de Propósito',
+          restricted: false,
+          weight: 10
+        },
+    {
+      vocabulary: 'SURVEY_QUESTION_CATEGORY',
+      code: 'GESTION_AMBIENTE_CLASE',
+      name: 'Gestion del Ambiente de Clase',
+      description: 'Gestion del Ambiente de Clase',
+      restricted: false,
+      weight: 20
     },
   ]
 }

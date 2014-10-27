@@ -52,6 +52,11 @@
 
   partyRoles: [
     {
+      type: 'INTERNAL_ORGANIZATION',
+      party: {organization: 'Didactic Latinoamerica'},
+      restricted: true
+    },
+    {
       type: 'CUSTOMER',
       party: {organization: 'UAEM Universidad Autónoma del Estado de México'},
       restricted: false
@@ -70,9 +75,26 @@
       },
       restricted: false,
       code: '964347386',
-      email: 'anasus2002@live.com'
+      contact: {email: 'anasus2002@live.com', type: 'EMAIL_PERSONAL'}
     },
 
+    {
+      type: 'EMPLOYEE',
+      party: {
+        person: {firstName: 'Susana', lastName: 'Meza Alcántara'}
+      },
+      restricted: false,
+      code: '964347386',
+      contact: {email: 'anasus2002@live.com', type: 'EMAIL_PERSONAL'}
+    },
+
+    {
+      type: 'INTERVIEWEE',
+      party: {
+        person: {firstName: 'Susana', lastName: 'Meza Alcántara'}
+      },
+      restricted: false
+    },
 
     {
       type: 'CAMPUS',

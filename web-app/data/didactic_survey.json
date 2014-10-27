@@ -1,0 +1,69 @@
+{
+  surveys: [
+    {
+      code: 'NECESIDADES_CAPACITACION',
+      title: 'Instrumento para la Detección de Necesidades de Capacitación',
+      description: '',
+      instructions: 'Estimado Profesor, este instrumento ha sido creado con el objetivo...',
+      answers: [
+        {
+          code: 'A01',
+          title: 'Algunas veces',
+          default: false,
+          weight: 10
+        },
+        {
+          code: 'A02',
+          title: 'Frecuentemente',
+          default: false,
+          weight: 20
+        },
+        {
+          code: 'A03',
+          title: 'Muy frecuentemente',
+          default: false,
+          weight: 30
+        },
+        {
+          code: 'A04',
+          title: 'Siempre',
+          default: false,
+          weight: 40
+        },
+      ],
+      questions: [
+        {
+          code: 'Q01',
+          title: 'Establezco una secuencia de los contenidos que desarrollaré durante la clase.',
+          description: '',
+          instructions: '',
+          optional: false,
+          weight: 10,
+          category: 'SELECCION_CONTENIDO',
+        },
+
+        {
+          code: 'Q02',
+          title: 'Busco la relación entre aprendizaje esperado y contenido.',
+          description: '',
+          instructions: '',
+          optional: false,
+          weight: 20,
+          category: 'SELECCION_CONTENIDO',
+        },
+
+        {
+          code: 'Q03',
+          title: 'Jerarquizo los contenidos de acuerdo a los conocimientos previos de los alumnos y su relación con los aprendizajes esperados.',
+          description: '',
+          instructions: '',
+          optional: false,
+          weight: 30,
+          category: 'SELECCION_CONTENIDO',
+        },
+
+      ]
+    }
+  ],
+
+}

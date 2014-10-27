@@ -312,7 +312,7 @@ class SetupCoreController {
                                     )
         if (!employee.save()) {
           log.error "Unable to create Employee: ${employee}."
-          Employee.errors.each { log.error it }
+          employee.errors.each { log.error it }
 
           throw new RuntimeException("Unable to create Employee: ${employee}.")
         }
@@ -325,10 +325,15 @@ class SetupCoreController {
           throw new RuntimeException("Unable to create Email: ${email}.")
         }
 
-        def employeeEmail = new PartyContactMechanism(party: employee, contactMechanism: email)
+        def employeeEmail = new PartyContactMechanism(party: party,
+                                                      contactMechanism: email,
+                                                      fromDate: new Date(),
+                                                      thruDate: new Date(),
+                                                      comment: 'comments'
+                                                      )
         if (!employeeEmail.save()) {
           log.error "Unable to create Employee Email: ${employeeEmail}."
-          PartyContactMechanism.errors.each { log.error it }
+          employeeEmail.errors.each { log.error it }
 
           throw new RuntimeException("Unable to create Employee Email: ${employeeEmail}.")
         }
@@ -357,24 +362,37 @@ class SetupCoreController {
 
       if (pr.from.organization) {
         fromParty = Organization.findByName(pr.from.organization)
+        from = PartyRole.findByParty(fromParty)
       }
       if (pr.from.person) {
         fromParty = Person.findByFirstNameAndLastName(pr.from.person.firstName, pr.from.person.lastName)
+        from = PartyRole.findByParty(fromParty)
       }
-      from = PartyRole.findByParty(fromParty)
 
       if (pr.to.organization) {
         toParty = Organization.findByName(pr.to.organization)
+        to = PartyRole.findByParty(toParty)
       }
       if (pr.to.person) {
         toParty = Person.findByFirstNameAndLastName(pr.to.person.firstName, pr.to.person.lastName)
+        to = PartyRole.findByParty(toParty)
       }
       if (pr.to.employee) {
-        toParty = Employee.findByCode(pr.employee.code)
+        toParty = Employee.findByCode(pr.to.employee)
+
+        if (!toParty) {
+          log.error "Unable to retrieve Employee: ${pr.to.employee}."
+
+          throw new RuntimeException("Unable to retrieve Employee: ${pr.to.employee}.")
+        }
+        to = toParty
       }
-      to = PartyRole.findByParty(toParty)
 
       type = Term.findByCode(pr.type)
+      if (!type) {
+        log.error "Unable to retrieve Party Relationship type: ${pr.type}."
+        throw new RuntimeException("UUnable to retrieve Party Relationship type: ${pr.type}.")
+      }
 
       def partyRelationship = new PartyRelationship(fromPartyRole: from,
                                                     toPartyRole: to,

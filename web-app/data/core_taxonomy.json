@@ -124,8 +124,8 @@
           vocabulary: 'PARTY_ROLE_TYPE',
           parent: 'PERSON_ROLE',
           code: 'INTERVIEWEE',
-          name: 'Interviwee',
-          description: 'Interviwee',
+          name: 'Interviewee',
+          description: 'Interviewee',
           restricted: true,
           weight: 20
         },

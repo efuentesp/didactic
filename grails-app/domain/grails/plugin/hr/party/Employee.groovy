@@ -1,7 +1,12 @@
 package grails.plugin.hr.party
 
-class Employee {
+import grails.plugin.core.party.PartyRole
 
-    static constraints = {
-    }
+class Employee extends PartyRole {
+
+  String code
+
+  static constraints = {
+    code (nullable: false, blank: false, unique: true)
+  }
 }

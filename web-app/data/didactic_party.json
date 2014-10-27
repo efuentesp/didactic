@@ -79,16 +79,6 @@
     },
 
     {
-      type: 'EMPLOYEE',
-      party: {
-        person: {firstName: 'Susana', lastName: 'Meza Alcántara'}
-      },
-      restricted: false,
-      code: '964347386',
-      contact: {email: 'anasus2002@live.com', type: 'EMAIL_PERSONAL'}
-    },
-
-    {
       type: 'INTERVIEWEE',
       party: {
         person: {firstName: 'Susana', lastName: 'Meza Alcántara'}
@@ -117,9 +107,9 @@
 
 
     {
-      type: 'EMPLOYMENT',
+      type: 'EMPLOYMENT_RELATIONSHIP',
       from: {organization: 'Jaime Torres Bodet'},
-      to: {employee: '15DBP0002W'},
+      to: {employee: '964347386'},
       restricted: false
     },
   ]

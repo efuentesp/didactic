@@ -3,63 +3,75 @@
     {
       code: 'NECESIDADES_CAPACITACION',
       title: 'Instrumento para la Detección de Necesidades de Capacitación',
-      description: '',
+      description: 'Instrumento para la Detección de Necesidades de Capacitación',
       instructions: 'Estimado Profesor, este instrumento ha sido creado con el objetivo...',
+      restricted: false,
       answers: [
         {
           code: 'A01',
           title: 'Algunas veces',
+          instructions: 'Instructions',
           default: false,
-          weight: 10
+          weight: 10,
+          restricted: false
         },
         {
           code: 'A02',
           title: 'Frecuentemente',
+          instructions: 'Instructions',
           default: false,
-          weight: 20
+          weight: 20,
+          restricted: false
         },
         {
           code: 'A03',
           title: 'Muy frecuentemente',
+          instructions: 'Instructions',
           default: false,
-          weight: 30
+          weight: 30,
+          restricted: false
         },
         {
           code: 'A04',
           title: 'Siempre',
+          instructions: 'Instructions',
           default: false,
-          weight: 40
+          weight: 40,
+          restricted: false
         },
       ],
       questions: [
         {
           code: 'Q01',
           title: 'Establezco una secuencia de los contenidos que desarrollaré durante la clase.',
-          description: '',
-          instructions: '',
+          description: 'Establezco una secuencia de los contenidos que desarrollaré durante la clase.',
+          instructions: 'Instructions',
           optional: false,
           weight: 10,
           category: 'SELECCION_CONTENIDO',
+          restricted: false
         },
 
         {
           code: 'Q02',
           title: 'Busco la relación entre aprendizaje esperado y contenido.',
-          description: '',
-          instructions: '',
+          description: 'Busco la relación entre aprendizaje esperado y contenido.',
+          instructions: 'Instructions',
           optional: false,
           weight: 20,
           category: 'SELECCION_CONTENIDO',
+          restricted: false
         },
 
         {
           code: 'Q03',
           title: 'Jerarquizo los contenidos de acuerdo a los conocimientos previos de los alumnos y su relación con los aprendizajes esperados.',
-          description: '',
-          instructions: '',
+          description: 'Jerarquizo los contenidos de acuerdo a los conocimientos previos de los alumnos y su relación con los aprendizajes esperados.',
+          instructions: 'Instructions',
           optional: false,
           weight: 30,
           category: 'SELECCION_CONTENIDO',
+          restricted: false
         },
 
       ]

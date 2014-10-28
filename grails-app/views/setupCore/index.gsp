@@ -104,3 +104,43 @@
     
   </g:uploadForm>
 </fieldset>
+
+<fieldset>
+  <g:uploadForm action="survey" method="post" class="form-horizontal">
+  
+    <div class="control-group">
+      <label class="control-label">Survey:</label>
+      <div class="controls">
+        <input type="file" id="jsonSurveyUpload" name="jsonSurveyUpload" value="" required />
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <i class="icon-ok icon-white"></i>
+        Upload
+      </button>
+    </div>
+    
+  </g:uploadForm>
+</fieldset>
+
+<fieldset>
+  <g:uploadForm action="surveyResponses" method="post" class="form-horizontal">
+  
+    <div class="control-group">
+      <label class="control-label">Survey Responses:</label>
+      <div class="controls">
+        <input type="file" id="jsonSurveyResponsesUpload" name="jsonSurveyResponsesUpload" value="" required />
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <i class="icon-ok icon-white"></i>
+        Upload
+      </button>
+    </div>
+    
+  </g:uploadForm>
+</fieldset>

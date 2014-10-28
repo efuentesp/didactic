@@ -6,6 +6,7 @@ import grails.plugin.core.party.*
 import grails.plugin.core.menu.*
 import grails.plugin.hr.party.*
 import grails.plugin.hr.competency.*
+import grails.plugin.survey.*
 
 import grails.converters.JSON
 
@@ -514,4 +515,142 @@ class SetupCoreController {
     [json: json]
   }
 
+  def survey() {
+    println "survey: ${params}"
+    
+    def file = request.getFile('jsonSurveyUpload')
+    //println file.inputStream.text
+    println "File content type: " + file.getContentType()
+    
+    def okcontents = ['application/json', 'application/octet-stream']
+    
+    if (! okcontents.contains(file.getContentType())) {
+      flash.message = "File must be one of: ${okcontents}, and was received: [${file.getContentType()}]"
+      render(view: 'index')
+      return;
+    }
+    
+    def json = JSON.parse(file.getInputStream(),"UTF-8")
+    
+    println json
+
+    // Survey
+    json.surveys.each { s ->
+      def survey = new Survey(code: s.code,
+                              title: s.title,
+                              description: s.description,
+                              instructions: s.instructions,
+                              restricted: s.restricted
+                              )
+
+      s.answers.each { a->
+        def answer = new SurveyAnswer(code: a.code,
+                                      title: a.title,
+                                      instructions: a.instructions,
+                                      defaultAnswer: a.default,
+                                      weight: a.weight,
+                                      restricted: a.restricted
+                                      )
+        survey.addToAnswers(answer)
+      }
+
+      s.questions.each { q ->
+        def question = new SurveyQuestion(code: q.code,
+                                          title: q.title,
+                                          description: q.description,
+                                          instructions: q.instructions,
+                                          optionalQuestion: q.optional,
+                                          weight: q.weight,
+                                          category: Term.findByCode(q.category),
+                                          restricted: q.restricted
+                                          )
+        survey.answers.each { a->
+          def answer = new SurveyQuestionAnswer(code: a.code,
+                                                title: a.title,
+                                                instructions: a.instructions,
+                                                defaultAnswer: a.defaultAnswer,
+                                                weight: a.weight,
+                                                restricted: a.restricted
+                                                )
+          question.addToAnswers(answer)
+        }
+
+        survey.addToQuestions(question)
+      }
+
+      if (!survey.save()) {
+        log.error "Unable to create Survey: ${survey}."
+        survey.errors.each { log.error it }
+
+        throw new RuntimeException("Unable to create Survey: ${survey}.")
+      }
+    }
+
+    [json: json]
+  }
+
+  def surveyResponses() {
+    println "surveyResponses: ${params}"
+    
+    def file = request.getFile('jsonSurveyResponsesUpload')
+    //println file.inputStream.text
+    println "File content type: " + file.getContentType()
+    
+    def okcontents = ['application/json', 'application/octet-stream']
+    
+    if (! okcontents.contains(file.getContentType())) {
+      flash.message = "File must be one of: ${okcontents}, and was received: [${file.getContentType()}]"
+      render(view: 'index')
+      return;
+    }
+    
+    def json = JSON.parse(file.getInputStream(),"UTF-8")
+    
+    println json
+
+    // Survey Responses
+    json.surveyQuestionResonses.each { r ->
+      def type = Term.findByCode('INTERVIEWEE')
+      if (!type) {
+        log.error "Unable to retrieve Party Role: INTERVIEWEE"
+        throw new RuntimeException("Unable to retrieve Party Role: INTERVIEWEE")
+      }
+
+      def person = Person.findByFirstNameAndLastName(r.interviewee.person.firstName, r.interviewee.person.lastName)
+      if (!person) {
+        log.error "Unable to retrieve Person: ${r.interviewee.person.firstName} ${r.interviewee.person.lastName}."
+        throw new RuntimeException("Unable to retrieve Person: ${r.interviewee.person.firstName} ${r.interviewee.person.lastName}.")
+      }
+
+      def interviewee = PartyRole.findByPartyAndType(person, type)
+      if (!interviewee) {
+        log.error "Unable to retrieve Interviewee: ${person}."
+        throw new RuntimeException("Unable to retrieve Interviewee: ${person}.")
+      }
+
+      r.surveys.each { s ->
+        def survey = Survey.findByCode(s.survey)
+        if (!survey) {
+          log.error "Unable to retrieve Survey: ${s.survey}."
+          throw new RuntimeException("Unable to retrieve Survey: ${s.survey}.")
+        }
+
+        s.responses.each { resp ->
+          def question = SurveyQuestion.findByCode(resp.question)
+          if (!question) {
+            log.error "Unable to retrieve Survey Question: ${resp.question}."
+            throw new RuntimeException("Unable to retrieve Survey Question: ${resp.question}.")
+          }
+
+          def answer = SurveyQuestionAnswer.findByCode(resp.response)
+          if (!answer) {
+            log.error "Unable to retrieve Survey Answer: ${rresp.response}."
+            throw new RuntimeException("Unable to retrieve Survey Answer: ${rresp.response}.")
+          }
+        }
+      }
+    }
+
+    [json: json]
+  }
 }

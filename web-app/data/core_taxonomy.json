@@ -123,9 +123,9 @@
         {
           vocabulary: 'PARTY_ROLE_TYPE',
           parent: 'PERSON_ROLE',
-          code: 'INTERVIEWEE',
-          name: 'Interviewee',
-          description: 'Interviewee',
+          code: 'SURVEY_INTERVIEWEE',
+          name: 'Survey Interviewee',
+          description: 'Survey Interviewee',
           restricted: true,
           weight: 20
         },

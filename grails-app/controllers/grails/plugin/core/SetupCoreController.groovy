@@ -305,56 +305,70 @@ class SetupCoreController {
         }
       }
 
-      if (pr.type == 'EMPLOYEE') {
-
-        def employee = new Employee(party: party,
-                                    type: Term.findByCode(pr.type),
-                                    restricted: pr.restricted,
-                                    code: pr.code
-                                    )
-        if (!employee.save()) {
-          log.error "Unable to create Employee: ${employee}."
-          employee.errors.each { log.error it }
-
-          throw new RuntimeException("Unable to create Employee: ${employee}.")
-        }
-
-        def email = new Email(email: pr.contact.email, type: Term.findByCode(pr.contact.type))
-        if (!email.save()) {
-          log.error "Unable to create Email: ${email}."
-          Email.errors.each { log.error it }
-
-          throw new RuntimeException("Unable to create Email: ${email}.")
-        }
-
-        def employeeEmail = new PartyContactMechanism(party: party,
-                                                      contactMechanism: email,
-                                                      fromDate: new Date(),
-                                                      thruDate: new Date(),
-                                                      comment: 'comments'
-                                                      )
-        if (!employeeEmail.save()) {
-          log.error "Unable to create Employee Email: ${employeeEmail}."
-          employeeEmail.errors.each { log.error it }
-
-          throw new RuntimeException("Unable to create Employee Email: ${employeeEmail}.")
-        }
-
-      } else {
-
-        def partyRole = new PartyRole(party: party,
+      switch (pr.type) {
+        case 'EMPLOYEE':
+          def employee = new Employee(party: party,
                                       type: Term.findByCode(pr.type),
-                                      restricted: pr.restricted
-                                     )
+                                      restricted: pr.restricted,
+                                      code: pr.code
+                                      )
+          if (!employee.save()) {
+            log.error "Unable to create Employee: ${employee}."
+            employee.errors.each { log.error it }
 
-        if (!partyRole.save()) {
-          log.error "Unable to create party role: ${partyRole.party}."
-          partyRole.errors.each { log.error it }
+            throw new RuntimeException("Unable to create Employee: ${employee}.")
+          }
 
-          throw new RuntimeException("Unable to create party role: ${partyRole.party}.")
-        }
+          def email = new Email(email: pr.contact.email, type: Term.findByCode(pr.contact.type))
+          if (!email.save()) {
+            log.error "Unable to create Email: ${email}."
+            Email.errors.each { log.error it }
 
+            throw new RuntimeException("Unable to create Email: ${email}.")
+          }
+
+          def employeeEmail = new PartyContactMechanism(party: party,
+                                                        contactMechanism: email,
+                                                        fromDate: new Date(),
+                                                        thruDate: new Date(),
+                                                        comment: 'comments'
+                                                        )
+          if (!employeeEmail.save()) {
+            log.error "Unable to create Employee Email: ${employeeEmail}."
+            employeeEmail.errors.each { log.error it }
+
+            throw new RuntimeException("Unable to create Employee Email: ${employeeEmail}.")
+          }
+          break
+
+        case 'SURVEY_INTERVIEWEE':
+          def interviewee = new SurveyInterviewee(party: party,
+                                                  type: Term.findByCode(pr.type),
+                                                  restricted: pr.restricted
+                                                 )
+
+          if (!interviewee.save()) {
+            log.error "Unable to create Survey Interviewee: ${interviewee.party}."
+            interviewee.errors.each { log.error it }
+
+            throw new RuntimeException("Unable to create Survey Interviewee: ${interviewee.party}.")
+          }
+          break
+
+        default:
+          def partyRole = new PartyRole(party: party,
+                                        type: Term.findByCode(pr.type),
+                                        restricted: pr.restricted
+                                       )
+
+          if (!partyRole.save()) {
+            log.error "Unable to create party role: ${partyRole.party}."
+            partyRole.errors.each { log.error it }
+
+            throw new RuntimeException("Unable to create party role: ${partyRole.party}.")
+          }
       }
+
     }
 
     // Party Relationship
@@ -610,7 +624,7 @@ class SetupCoreController {
 
     // Survey Responses
     json.surveyQuestionResonses.each { r ->
-      def type = Term.findByCode('INTERVIEWEE')
+      def type = Term.findByCode('SURVEY_INTERVIEWEE')
       if (!type) {
         log.error "Unable to retrieve Party Role: INTERVIEWEE"
         throw new RuntimeException("Unable to retrieve Party Role: INTERVIEWEE")
@@ -622,7 +636,7 @@ class SetupCoreController {
         throw new RuntimeException("Unable to retrieve Person: ${r.interviewee.person.firstName} ${r.interviewee.person.lastName}.")
       }
 
-      def interviewee = PartyRole.findByPartyAndType(person, type)
+      def interviewee = SurveyInterviewee.findByPartyAndType(person, type)
       if (!interviewee) {
         log.error "Unable to retrieve Interviewee: ${person}."
         throw new RuntimeException("Unable to retrieve Interviewee: ${person}.")
@@ -635,6 +649,11 @@ class SetupCoreController {
           throw new RuntimeException("Unable to retrieve Survey: ${s.survey}.")
         }
 
+        def surveyAssigned = new SurveyAssigned(interviewee: interviewee,
+                                                survey: survey,
+                                                dateAssigned: new Date()-1,
+                                                dateResponded: new Date())
+
         s.responses.each { resp ->
           def question = SurveyQuestion.findByCode(resp.question)
           if (!question) {
@@ -645,7 +664,21 @@ class SetupCoreController {
           def answer = SurveyQuestionAnswer.findByCode(resp.response)
           if (!answer) {
             log.error "Unable to retrieve Survey Answer: ${rresp.response}."
-            throw new RuntimeException("Unable to retrieve Survey Answer: ${rresp.response}.")
+            throw new RuntimeException("Unable to retrieve Survey Answer: ${resp.response}.")
+          }
+          println "<<<< ${answer}"
+          def surveyAssignedResponse = surveyAssignedResponse(surveyAssigned: surveyAssigned,
+                                                              question: question,
+                                                              answer: answer,
+                                                              dateResponded: new Date()
+                                                              )
+
+          surveyAssigned.addToResponses(surveyAssignedResponse)
+          if (!surveyAssigned.save()) {
+            log.error "Unable to create Survey Assigned: ${surveyAssigned}."
+            surveyAssigned.errors.each { log.error it }
+
+            throw new RuntimeException("Unable to create Survey Assigned: ${surveyAssigned}.")
           }
         }
       }

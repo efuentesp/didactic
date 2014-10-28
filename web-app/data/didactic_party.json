@@ -79,7 +79,7 @@
     },
 
     {
-      type: 'INTERVIEWEE',
+      type: 'SURVEY_INTERVIEWEE',
       party: {
         person: {firstName: 'Susana', lastName: 'Meza Alcántara'}
       },

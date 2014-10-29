@@ -7,7 +7,7 @@ class SurveyAssignedResponse implements Serializable {
   static belongsTo = [
     surveyAssigned: SurveyAssigned,
     question: SurveyQuestion,
-    answer: SurveyAnswer
+    answer: SurveyQuestionAnswer
   ]
 
   static constrains = {
@@ -18,7 +18,7 @@ class SurveyAssignedResponse implements Serializable {
   }
 
   String toString() {
-    "${dateResponded} : ${interviwee} : ${question} : ${answer}"
+    "${dateResponded} : ${surveyAssigned} : ${question} : ${answer}"
   }
 
 }

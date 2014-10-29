@@ -14,8 +14,8 @@
 
     roles: [
         {
-            name: 'SCHOOL_ADMIN',
-            description: 'Assigned to users who are considered to be Administrators for an Educational Institution',
+            name: 'CUSTOMER_ADMIN',
+            description: 'Assigned to users who are considered to be Customer's Administrators',
             restricted: true,
         },
         {
@@ -42,7 +42,7 @@
             name: 'School Admin 1',
             email: 'schooladmin1@mail.com',
             enabled: true,
-            roles: [ 'SCHOOL_ADMIN' ]
+            roles: [ 'CUSTOMER_ADMIN' ]
         },
         {
             username: 'professor1',

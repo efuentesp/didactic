@@ -666,12 +666,12 @@ class SetupCoreController {
             log.error "Unable to retrieve Survey Answer: ${rresp.response}."
             throw new RuntimeException("Unable to retrieve Survey Answer: ${resp.response}.")
           }
-          println "<<<< ${answer}"
-          def surveyAssignedResponse = surveyAssignedResponse(surveyAssigned: surveyAssigned,
-                                                              question: question,
-                                                              answer: answer,
-                                                              dateResponded: new Date()
+          def surveyAssignedResponse = new SurveyAssignedResponse(surveyAssigned: surveyAssigned,
+                                                                  question: question,
+                                                                  answer: answer,
+                                                                  dateResponded: new Date()
                                                               )
+          println "<<<< ${surveyAssignedResponse}"
 
           surveyAssigned.addToResponses(surveyAssignedResponse)
           if (!surveyAssigned.save()) {

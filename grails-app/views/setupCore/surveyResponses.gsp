@@ -5,5 +5,5 @@
 
 <g:if test="${json.surveyQuestionResonses}">
   <br>
-  <g:link controller="surveyResponses" action="index">Survey Responses List (total=${json.surveyQuestionResonses.size()})</g:link>
+  <g:link controller="surveyAssignedResponse" action="index">Survey Responses List (total=${json.surveyQuestionResonses.size()})</g:link>
 </g:if>

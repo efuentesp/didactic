@@ -21,7 +21,11 @@ class SurveyAssigned implements Serializable {
   }
 
   String toString() {
-    "${dateAssigned} : ${dateResponded} : ${interviewee} : ${survey} : (${responses.size()})"
+    if (responses) {
+      "${dateAssigned} : ${dateResponded} : ${interviewee} : ${survey} : (${responses.size()})"
+    } else {
+      "${dateAssigned} : ${dateResponded} : ${interviewee} : ${survey} : (0)"
+    }
   }
 
 }

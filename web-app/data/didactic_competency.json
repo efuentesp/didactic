@@ -41,84 +41,332 @@
 
   competencies: [
     {
-      model: 'DIDACTIC',
-      code: 'SEL_CONTENIDO',
-      name: 'Selección de Contenidos',
-      description: 'Selección de Contenidos',
-      category: 'PLANEACION',
-      restricted: false,
+      model:'DIDACTIC',
+      code:'1',
+      name:'Selección de contenidos',
+      description:'Selección de contenidos',
+      category:'PLANEACION',
+      restricted:false,
       indicators: [
         {
-          code: 'SEL_CONTENIDO_1',
-          name: 'Establece una secuencia de los contenidos que desarrollará durante la clase.',
-          description: 'Establece una secuencia de los contenidos que desarrollará durante la clase.',
-          restricted: false
+          code:'1',
+          name:'Establece una secuencia de los contenidos que desarrollará durante la clase',
+          description:'Establezco una secuencia de los contenidos que desarrollaré durante la clase',
+          restricted:false
         },
         {
-          code: 'SEL_CONTENIDO_2',
-          name: 'Existe  relación entre aprendizaje eeperado - contenido.',
-          description: 'Existe  relación entre aprendizaje eeperado - contenido.',
-          restricted: false
+          code:'2',
+          name:'Existe relación entre aprendizaje esperado - contenido.',
+          description:'Busco la relación entre aprendizaje esperado y contenido',
+          restricted:false
         },
+        {
+          code:'3',
+          name:'Jerarquiza los contenidos de acuerdo a los conocimientos previos de los alumnos y su relación con los aprendizajes esperados',
+          description:'Jerarquizo los contenidos de acuerdo a los conocimientos previos de los alumnos y su relación con los aprendizajes esperados',
+          restricted:false
+        }
       ]
     },
     {
-      model: 'DIDACTIC',
-      code: 'SEL_PROPOSITO',
-      name: 'Selección de Propósito',
-      description: 'Selección de Propósito',
-      category: 'PLANEACION',
-      restricted: false,
+      model:'DIDACTIC',
+      code:'2',
+      name:'Selección del propósito',
+      description:'Selección del propósito',
+      category:'PLANEACION',
+      restricted:false,
       indicators: [
         {
-          code: 'SEL_PROPOSITO_1',
-          name: 'Formula metas de aprendizaje claras y alcanzables.',
-          description: 'Formula metas de aprendizaje claras y alcanzables.',
-          restricted: false
+          code:'4',
+          name:'Formula metas de aprendizaje claras y alcanzables.',
+          description:'Formulo metas de aprendizaje claras y alcanzables acordes a los aprendizajes esperados',
+          restricted:false
         },
         {
-          code: 'SEL_PROPOSITO_2',
-          name: 'Está expresando en forma positiva y en presente.',
-          description: 'Está expresando en forma positiva y en presente.',
-          restricted: false
-        },
+          code:'5',
+          name:'Está expresado en forma positiva y en presente.',
+          description:'Expreso la meta de aprendizaje en forma positiva y en presente',
+          restricted:false
+        }
       ]
     },
     {
-      model: 'DIDACTIC',
-      code: 'REL_INTERPERSONALES',
-      name: 'Relaciones Interpersonales',
-      description: 'Relaciones Interpersonales',
-      category: 'AMBIENTE_CLASE',
-      restricted: false,
+      model:'DIDACTIC',
+      code:'3',
+      name:'Diseño de estrategias didácticas',
+      description:'Diseño de estrategias didácticas',
+      category:'PLANEACION',
+      restricted:false,
       indicators: [
         {
-          code: 'REL_INTERPERSONALES_1',
-          name: 'Diagnostica y toma en cuenta las necesidades de aprendizaje del grupo para diseñar las estrategias didácticas.',
-          description: 'Diagnostica y toma en cuenta las necesidades de aprendizaje del grupo para diseñar las estrategias didácticas.',
-          restricted: false
+          code:'6',
+          name:'Diagnóstica y toma en cuenta las necesidades de aprendizaje del grupo para diseñar las estrategias didácticas',
+          description:'Diagnostico y tomo en cuenta los estilos y las necesidades de aprendizaje del grupo para diseñar las estrategias didácticas',
+          restricted:false
         },
         {
-          code: 'REL_INTERPERSONALES_2',
-          name: 'Diseña estrategias didácticas integradoras vinculando los aprendizajes esperados y los contenidos que desarrollará durante la clase.',
-          description: 'Diseña estrategias didácticas integradoras vinculando los aprendizajes esperados y los contenidos que desarrollará durante la clase.',
-          restricted: false
+          code:'7',
+          name:'Diseña estrategias didácticas integradoras vinculando los aprendizajes esperados y los contenidos que desarrollará durante la clase',
+          description:'Diseño estrategias didácticas integradoras vinculando los aprendizajes esperados y los contenidos a desarrollar durante la clase',
+          restricted:false
         },
         {
-          code: 'REL_INTERPERSONALES_3',
-          name: 'Optimiza recursos, espacios y establece tiempos reales.',
-          description: 'Optimiza recursos, espacios y establece tiempos reales.',
-          restricted: false
+          code:'8',
+          name:'Optimiza recursos, espacios y establece tiempos reales',
+          description:'Optimizo recursos, espacios y establezco tiempos reales',
+          restricted:false
         },
         {
-          code: 'REL_INTERPERSONALES_4',
-          name: 'Realiza el diseño de actividades tomando en consideración la recuperación de conocimientos previos.',
-          description: 'Realiza el diseño de actividades tomando en consideración la recuperación de conocimientos previos.',
-          restricted: false
-        },
+          code:'9',
+          name:'Realiza el diseño de actividades tomando en consideración la recuperación de conocimientos previos',
+          description:'Al realizar el diseño de actividades tomo en consideración la recuperación de conocimientos previos',
+          restricted:false
+        }
       ]
     },
-  ],
+    {
+      model:'DIDACTIC',
+      code:'4',
+      name:'Selección de mecanismos de evaluación',
+      description:'Selección de mecanismos de evaluación',
+      category:'PLANEACION',
+      restricted:false,
+      indicators: [
+        {
+          code:'10',
+          name:'Se encuentran especificados los mecanismos de evaluación en la planeación.',
+          description:'Especifico los mecanismos de evaluación en la planeación',
+          restricted:false
+        },
+        {
+          code:'11',
+          name:'Utiliza instrumentos de evaluación que permiten obtener evidencias (lista de cotejo, rúbricas, proyectos, portafolio).',
+          description:'Utilizo instrumentos de evaluación que permiten obtener evidencias del desempeño delos alumnos (expediente del alumno, registro anecdótico, lista de cotejo, rúbricas, proyectos, portafolio)',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'5',
+      name:'Relaciones interpersonales',
+      description:'Relaciones interpersonales',
+      category:'AMBIENTE_CLASE',
+      restricted:false,
+      indicators: [
+        {
+          code:'12',
+          name:'Establece un clima de relaciones respetuosas y empáticas con sus alumnos.',
+          description:'Genero ambientes de aprendizaje que fomentan relaciones respetuosas y empáticas con mis alumnos',
+          restricted:false
+        },
+        {
+          code:'13',
+          name:'Proporciona a todos los alumnos oportunidades de participación',
+          description:'A lo largo del proceso proporciono a todos mis alumnos oportunidades de participar',
+          restricted:false
+        },
+        {
+          code:'14',
+          name:'Promueve actitudes de compromiso y solidaridad entre los alumnos',
+          description:'Promuevo actitudes de compromiso y solidaridad entre mis alumnos',
+          restricted:false
+        },
+        {
+          code:'15',
+          name:'Transmite una motivación positiva por el aprendizaje',
+          description:'Transmito una motivación positiva por el aprendizaje',
+          restricted:false
+        },
+        {
+          code:'16',
+          name:'Fortalezce la motivación del alumno en el proceso de aprendizaje',
+          description:'Fortalezco la motivación del alumno en el proceso de aprendizaje',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'6',
+      name:'Manejo de Grupo',
+      description:'Manejo de Grupo',
+      category:'AMBIENTE_CLASE',
+      restricted:false,
+      indicators: [
+        {
+          code:'17',
+          name:'Establece normas de comportamiento que son conocidas y comprendidas por los alumnos',
+          description:'Promuevo acuerdos para un comportamiento que lleve a la convivencia escolar armónica entre los alumnos',
+          restricted:false
+        },
+        {
+          code:'18',
+          name:'Utiliza estrategias para monitorear el cumplimiento de las normas de convivencia.',
+          description:'Utilizo estrategias para monitorear el cumplimiento de los acuerdos de convivencia',
+          restricted:false
+        },
+        {
+          code:'19',
+          name:'Fortalece el desarrollo de las habilidades sociales del alumno',
+          description:'Fortalezco el desarrollo de las habilidades sociales del alumno',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'7',
+      name:'Conocimiento de la Asignatura',
+      description:'Conocimiento de la Asignatura',
+      category:'GESTION_CURRICULAR',
+      restricted:false,
+      indicators: [
+        {
+          code:'20',
+          name:'Desarrolla los contenidos en forma clara, precisa y adecuada al nivel de los alumnos',
+          description:'Identifico y desarrollo los contenidos en forma clara y precisa utilizando el lenguaje apropiado',
+          restricted:false
+        },
+        {
+          code:'21',
+          name:'Desarrolla los contenidos con rigurosidad conceptual',
+          description:'Desarrollo los contenidos con rigurosidad conceptual',
+          restricted:false
+        },
+        {
+          code:'22',
+          name:'Desarrolla los contenidos con una secuencia adecuada a la comprensión de los estudiantes.',
+          description:'Desarrollo los contenidos con una secuencia didáctica adecuada a la comprensión de los estudiantes',
+          restricted:false
+        },
+        {
+          code:'23',
+          name:'Maneja eficazmente la redacción y la ortografía',
+          description:'Manejo eficazmente la redacción y la ortografía',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'8',
+      name:'Relaciones entre asignaturas',
+      description:'Relaciones entre asignaturas',
+      category:'GESTION_CURRICULAR',
+      restricted:false,
+      indicators: [
+        {
+          code:'24',
+          name:'Conoce y comprende la relación de los contenidos de las diferentes asignaturas',
+          description:'Conozco y comprendo la relación de los contenidos de las diferentes asignaturas',
+          restricted:false
+        },
+        {
+          code:'25',
+          name:'Durante la clase relaciona contenidos de las diferentes asignaturas',
+          description:'Durante la clase relaciono contenidos de las diferentes asignaturas o campos formativos',
+          restricted:false
+        },
+        {
+          code:'26',
+          name:'Orienta a los alumnos hacia temáticas ligadas a los objetivos transversales, con el fin de favorecer su proceso de construcción de valores',
+          description:'Oriento a los alumnos hacia temáticas ligadas a los objetivos transversales, con el fin de favorecer su proceso de construcción de valores',
+          restricted:false
+        },
+        {
+          code:'27',
+          name:'Prepara sus clases con amplio antecedente y va más allá de la información del programa',
+          description:'Preparo mis clases empleando diversas fuentes y voy más allá de la información del programa',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'9',
+      name:'Conexión asignaturas contextos',
+      description:'Conexión asignaturas contextos',
+      category:'GESTION_CURRICULAR',
+      restricted:false,
+      indicators: [
+        {
+          code:'28',
+          name:'Conoce la relación de los contenidos que enseña con la realidad',
+          description:'Conozco la relación de los contenidos que enseño con la realidad',
+          restricted:false
+        },
+        {
+          code:'29',
+          name:'Incentiva a los alumnos a establecer relaciones y ubicar en diferentes contextos el conocimiento de objetos, eventos y fenómenos',
+          description:'Incentivo a los alumnos a establecer relaciones y ubicar en diferentes contextos el conocimiento de objetos, eventos y fenómenos',
+          restricted:false
+        },
+        {
+          code:'30',
+          name:'Las actividades de enseñanza consideran variados espacios para su realización (visitas educativas)',
+          description:'Organizo visitas educativas (museos, fábricas, etc',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'10',
+      name:'Presentación curricular',
+      description:'Presentación curricular',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'31',
+          name:'Comunica a los estudiantes los propósitos de la clase y los aprendizajes a lograr',
+          description:'Comunico a mis alumnos los propósitos de la clase y los aprendizajes a lograr',
+          restricted:false
+        },
+        {
+          code:'32',
+          name:'Comunica a los estudiantes los criterios que los orientarán tanto para autoevaluarse como para ser evaluados',
+          description:'Comunico a mis alumnos los criterios que los orienten, tanto para autoevaluarse como para ser evaluados',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'11',
+      name:'Atención diferenciada',
+      description:'Atención diferenciada',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'33',
+          name:'Conoce las diferentes maneras de aprender de sus alumnos',
+          description:'Conozco las diferentes maneras de aprender de mis alumnos',
+          restricted:false
+        },
+        {
+          code:'34',
+          name:'Conoce las fortalezas y debilidades de sus alumnos respecto a los contenidos que enseña',
+          description:'Conozco las fortalezas y debilidades de mis alumnos respecto a los diferentes contenidos que enseño',
+          restricted:false
+        },
+        {
+          code:'35',
+          name:'Organiza las actividades para atender las diferentes necesidades de aprendizaje de los alumnos',
+          description:'Organizo actividades diferenciadas para atender las diferentes necesidades de aprendizaje de mis alumnos',
+          restricted:false
+        },
+        {
+          code:'36',
+          name:'Jerarquiza las necesidades de aprendizaje del grupo',
+          description:'Jerarquizo las necesidades de aprendizaje del grupo',
+          restricted:false
+        }
+      ]
+    }
 
+  ]
 
 }

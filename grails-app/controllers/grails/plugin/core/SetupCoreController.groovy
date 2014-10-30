@@ -453,7 +453,7 @@ class SetupCoreController {
                                       description: m.description,
                                       restricted: m.restricted
                                       )
-      if (!competencyModel.save()) {
+      if (!competencyModel.save(flush: true)) {
         log.error "Unable to create Competency Model: ${m.name}."
         competencyModel.errors.each { log.error it }
 
@@ -478,7 +478,7 @@ class SetupCoreController {
 
       competencyModel.addToLevels(competencyLevel)
 
-      if (!competencyModel.save()) {
+      if (!competencyModel.save(flush: true)) {
         log.error "Unable to add a Level to Competency Model: ${l.name}."
         competencyModel.errors.each { log.error it }
 
@@ -518,7 +518,7 @@ class SetupCoreController {
 
       competencyModel.addToCompetencies(competency)
 
-      if (!competencyModel.save()) {
+      if (!competencyModel.save(flush: true)) {
         log.error "Unable to add a Competency to Competency Model: ${c.name}."
         competencyModel.errors.each { log.error it }
 

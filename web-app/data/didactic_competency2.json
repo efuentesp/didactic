@@ -1,0 +1,391 @@
+{
+  competencies: [
+    {
+      model:'DIDACTIC',
+      code:'12',
+      name:'Organización del grupo',
+      description:'Organización del grupo',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'37',
+          name:'Utiliza estrategias para crear y mantener un ambiente organizado',
+          description:'Genero ambientes que propicien el aprendizaje',
+          restricted:false
+        },
+        {
+          code:'38',
+          name:'Estructura el espacio de manera coherente con las actividades de aprendizaje',
+          description:'Organizo el espacio de manera flexible y coherente con las actividades de aprendizaje',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'13',
+      name:'Relación de aprendizaje alumno-alumno',
+      description:'Relación de aprendizaje alumno-alumno',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'39',
+          name:'Promueve el diálogo entre pares en relación a objetos de aprendizaje',
+          description:'Promuevo el diálogo entre pares en relación a objetos de aprendizaje',
+          restricted:false
+        },
+        {
+          code:'40',
+          name:'Orienta a sus alumnos para que tengan una mejor integración con sus iguales',
+          description:'Oriento a mis alumnos para que tengan una mejor integración con sus iguales',
+          restricted:false
+        },
+        {
+          code:'41',
+          name:'Fortalece las habilidades de comunicación entre sus alumnos',
+          description:'Fortalezco las habilidades de comunicación y sociales entre mis alumnos',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'14',
+      name:'Recursos didácticos',
+      description:'Recursos didácticos',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'42',
+          name:'Utiliza material que acerca a los estudiantes a situaciones de la vida real',
+          description:'acerca a los estudiantes a situaciones de la vida real,',
+          restricted:false
+        },
+        {
+          code:'43',
+          name:'El material propicia el desarrollo de habilidades',
+          description:'propicia el desarrollo de habilidades,',
+          restricted:false
+        },
+        {
+          code:'44',
+          name:'Promueve el aprendizaje autónomo y colaborativo,',
+          description:'promueve el aprendizaje autónomo y colaborativo,',
+          restricted:false
+        },
+        {
+          code:'45',
+          name:'Facilita la construcción del conocimiento y lo hace significativo',
+          description:'facilita la construcción del conocimiento y lo hace significativo',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'15',
+      name:'Recursos espaciales',
+      description:'Recursos espaciales',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'46',
+          name:'Se desplaza y hace uso del espacio tomando en consideración las necesidades de las actividades que realiza',
+          description:'',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'16',
+      name:'Manejo del tiempo',
+      description:'Manejo del tiempo',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'47',
+          name:'Utiliza el tiempo disponible para la enseñanza en función de los objetivos de la clase',
+          description:'Distribuyo el tiempo disponible para la enseñanza en función de los objetivos de la clase',
+          restricted:false
+        },
+        {
+          code:'48',
+          name:'Organiza el tiempo de acuerdo con las necesidades de aprendizaje de sus alumnos',
+          description:'Organizo el tiempo de acuerdo con las necesidades de aprendizaje de mis alumnos',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'17',
+      name:'Indicaciones',
+      description:'Indicaciones',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'49',
+          name:'Espera a que la atención de los alumnos esté enfocada en las indicaciones',
+          description:'Espero a que la atención de mis alumnos esté enfocada para dar las indicaciones',
+          restricted:false
+        },
+        {
+          code:'50',
+          name:'Da instrucciones cortas, precisas y específicas',
+          description:'Doy instrucciones cortas, precisas y específicas',
+          restricted:false
+        },
+        {
+          code:'51',
+          name:'Da las instrucciones una por una',
+          description:'Doy las instrucciones una por una',
+          restricted:false
+        },
+        {
+          code:'52',
+          name:'Establece marcos de tiempo para realizar las instrucciones',
+          description:'Establezco marcos de tiempo para realizar las instrucciones',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'18',
+      name:'Explicaciones',
+      description:'Explicaciones',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'53',
+          name:'Utiliza lenguaje sencillo, concreto, preciso, cotidiano y previsiblemente entendible para los alumnos',
+          description:'Utilizo lenguaje sencillo, concreto, preciso, cotidiano y previsiblemente entendible para los alumnos',
+          restricted:false
+        },
+        {
+          code:'54',
+          name:'Verifica que las explicaciones sean comprendidas',
+          description:'Verifico que las explicaciones sean comprendidas',
+          restricted:false
+        },
+        {
+          code:'55',
+          name:'Favorece que los alumnos hagan referencia a los conceptos y definiciones con sus propias palabras',
+          description:'Favorezco que los alumnos hagan referencia a los conceptos y definiciones con sus propias palabras',
+          restricted:false
+        },
+        {
+          code:'56',
+          name:'Propicia la comprensión utilizando diferentes tipos de lenguaje de acuerdo a las características de aprendizaje de los alumnos (lenguaje auditivo, visual y kinestésico)',
+          description:'Propicio la comprensión utilizando diferentes tipos de lenguaje de acuerdo a las características de aprendizaje de los alumnos (lenguaje auditivo, visual y kinestésico)',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'19',
+      name:'Preguntas',
+      description:'Preguntas',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'57',
+          name:'Utiliza la pregunta para recuperar los conocimientos previos de los alumnos',
+          description:'Utilizo la pregunta y/o planteamientos como recurso para recuperar los conocimientos previos de los alumnos',
+          restricted:false
+        },
+        {
+          code:'58',
+          name:'Formula preguntas y problemas y concede el tiempo necesario para resolverlos',
+          description:'Formulo preguntas y problemas y concedo el tiempo necesario para resolverlos',
+          restricted:false
+        },
+        {
+          code:'59',
+          name:'Corrobora la comprensión del tema a través de preguntas',
+          description:'Corroboro la comprensión del tema a través de preguntas',
+          restricted:false
+        },
+        {
+          code:'60',
+          name:'Utiliza preguntas abiertas que favorecen la reflexión y el pensamiento crítico',
+          description:'Utilizo preguntas abiertas que favorecen la reflexión y el pensamiento crítico',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'20',
+      name:'Actividades dirigidas',
+      description:'Actividades dirigidas',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'61',
+          name:'Estructura las secuencias didácticas considerando los conocimientos, intereses y experiencias de los estudiantes',
+          description:'Estructuro las secuencias didácticas considerando los conocimientos, intereses y experiencias de los estudiantes',
+          restricted:false
+        },
+        {
+          code:'62',
+          name:'Utiliza actividades diversas de acuerdo al tipo y complejidad de los contenidos',
+          description:'Utilizo actividades diversas de acuerdo al tipo y complejidad de los contenidos',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'21',
+      name:'Actividades no dirigidas',
+      description:'Actividades no dirigidas',
+      category:'GESTION_DIDACTICA',
+      restricted:false,
+      indicators: [
+        {
+          code:'63',
+          name:'Promueve la capacidad de decisión de los alumnos.',
+          description:'Promuevo la capacidad de decisión de los alumnos',
+          restricted:false
+        },
+        {
+          code:'64',
+          name:'Permite que los alumnos decidan la estrategia a utilizar para apropiarse del conocimiento de acuerdo a sus características de aprendizaje',
+          description:'Permito que los alumnos decidan la estrategia a utilizar para apropiarse del conocimiento de acuerdo a sus características de aprendizaje',
+          restricted:false
+        },
+        {
+          code:'65',
+          name:'Favorece la autonomía de los alumnos en situaciones de aprendizaje',
+          description:'Favorezco la autonomía de mis alumnos en situaciones de aprendizaje',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'22',
+      name:'Autovaloración',
+      description:'Autovaloración',
+      category:'EVALUACION',
+      restricted:false,
+      indicators: [
+        {
+          code:'66',
+          name:'Orienta a los alumnos para que valoren sus avances y establezcan compromisos para mejorar',
+          description:'Oriento a los alumnos para que valoren sus avances y establezcan compromisos para mejorar',
+          restricted:false
+        },
+        {
+          code:'67',
+          name:'Propicia la revisión de sus trabajos y los comparen para conocer sus avances y/o dificultades',
+          description:'Propicio la revisión de sus trabajos y que los comparen para conocer sus avances y/o dificultades',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'23',
+      name:'Valoración entre alumnos',
+      description:'Valoración entre alumnos',
+      category:'EVALUACION',
+      restricted:false,
+      indicators: [
+        {
+          code:'68',
+          name:'Orienta a los alumnos para que valoren los avances de sus compañeros a partir del intercambio y socialización de ideas y productos',
+          description:'Oriento a los alumnos para que valoren los avances de sus compañeros a partir del intercambio y socialización de ideas y productos',
+          restricted:false
+        },
+        {
+          code:'69',
+          name:'Promueve la opinión respetuosa sobre el trabajo de sus compañeros',
+          description:'Promuevo la opinión respetuosa sobre el trabajo de sus compañeros',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'24',
+      name:'Valoración del docente a los alumnos',
+      description:'Valoración del docente a los alumnos',
+      category:'EVALUACION',
+      restricted:false,
+      indicators: [
+        {
+          code:'70',
+          name:'Utiliza estrategias pertinentes para evaluar el logro de los objetivo de aprendizaje definidos para una clase',
+          description:'Utilizo estrategias pertinentes para evaluar el logro de los aprendizajes definidos para una clase',
+          restricted:false
+        },
+        {
+          code:'71',
+          name:'Utiliza estrategias de retroalimentación que permiten a los estudiantes tomar conciencia de sus logros de aprendizaje',
+          description:'Utilizo estrategias de retroalimentación que permiten a los estudiantes tomar conciencia de sus logros de aprendizaje',
+          restricted:false
+        },
+        {
+          code:'72',
+          name:'Reformula y adapta las actividades de enseñanza de acuerdo con las evidencias que recoge sobre los aprendizajes de sus alumnos',
+          description:'Reformulo y adapto las actividades de enseñanza de acuerdo con las evidencias que obtengo sobre los aprendizajes de los alumnos',
+          restricted:false
+        },
+        {
+          code:'73',
+          name:'Utiliza los instrumentos de evaluación adecuados para el nivel de desarrollo y aprendizaje de los alumnos',
+          description:'Utilizo los instrumentos de evaluación adecuados para el nivel de desarrollo y aprendizaje de los alumnos',
+          restricted:false
+        }
+      ]
+    },
+    {
+      model:'DIDACTIC',
+      code:'25',
+      name:'Retroalimentación de saberes',
+      description:'Retroalimentación de saberes',
+      category:'EVALUACION',
+      restricted:false,
+      indicators: [
+        {
+          code:'74',
+          name:'Aborda los errores no como fracasos, sino como ocasiones para enriquecer el procesos de aprendizaje',
+          description:'Abordo los errores no como fracasos, sino como oportunidades para enriquecer el proceso de aprendizaje',
+          restricted:false
+        },
+        {
+          code:'75',
+          name:'Observa y registra los logros y dificultades de los alumnos',
+          description:'Observo y registro los logros y dificultades de los alumnos',
+          restricted:false
+        },
+        {
+          code:'76',
+          name:'Socializa con los alumnos los resultados de diversas evaluaciones respetando y fomentando su autoestima',
+          description:'Socializo con los alumnos los resultados de diversas evaluaciones respetando y fomentando su autoestima',
+          restricted:false
+        },
+        {
+          code:'77',
+          name:'Realiza actividades y/o ejercicios de recuperación de saberes',
+          description:'Realizo actividades y/o ejercicios de recuperación de saberes',
+          restricted:false
+        }
+      ]
+    }
+  ],
+
+}

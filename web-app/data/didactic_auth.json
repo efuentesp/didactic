@@ -9,7 +9,7 @@
             actions: '*',
             instances: '*',
             restricted: true
-        },
+        }
     ],
 
     roles: [
@@ -32,7 +32,7 @@
             name: 'ASSESSOR',
             description: 'Assigned to users who are considered Assessors',
             restricted: true,
-        },
+        }
     ],
 
     users: [

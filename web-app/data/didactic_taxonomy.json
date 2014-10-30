@@ -149,6 +149,7 @@
       weight: 50
     },
 
+
     {
       vocabulary: 'COMPETENCY_CATEGORY',
       code: 'PLANEACION',
@@ -189,6 +190,7 @@
       restricted: false,
       weight: 50
     },
+
 
     {
       vocabulary: 'SURVEY_QUESTION_CATEGORY',

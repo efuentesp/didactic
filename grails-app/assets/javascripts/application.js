@@ -6,7 +6,10 @@
 // to create separate JavaScript files as needed.
 //
 //= require jquery
-//= require_tree .
+//= require vendor/bootstrap/bootstrap
+// require vendor/d3/d3
+// require vendor/c3/c3
+// require_tree dashboard
 //= require_self
 
 if (typeof jQuery !== 'undefined') {

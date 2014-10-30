@@ -1,4 +1,4 @@
-package la.didactic.auth
+package la.didactic.core.auth
 
 class CustomerAdminController {
 

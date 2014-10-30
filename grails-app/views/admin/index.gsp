@@ -1,8 +1,14 @@
+<%@page import="grails.plugin.core.taxonomy.*"%>
+<%@page import="grails.plugin.core.party.*"%>
+<%@page import="grails.plugin.survey.*"%>
 <!DOCTYPE html>
 <html>
   <head>
     <meta name="layout" content="app"/>
     <title>Welcome to Didactic.la</title>
+
+    <asset:stylesheet src="dashboard.css"/>
+    <asset:stylesheet src="c3.min.css"/>
   </head>
 
   <body>
@@ -26,16 +32,23 @@
 
     <div class="row">
 
+      <g:set var="educationalServiceProviderTerm" value="${Term.findByCode('EDUCATIONAL_SERVICE_PROVIDER')}" />
+      <g:set var="educationalServiceProviders" value="${Organization.findAllByType(educationalServiceProviderTerm)}" />
       <div class="col-lg-3 col-md-6">
         <div class="panel panel-primary">
           <div class="panel-heading">
             <div class="row">
               <div class="col-xs-3">
-                <i class="fa fa-comments fa-5x"></i>
+                <i class="fa fa-institution fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <div class="huge">26</div>
-                <div>New Comments!</div>
+                <div class="huge">
+                  <g:if test='${educationalServiceProviders}'>
+                    ${educationalServiceProviders.size()}
+                  </g:if>
+                  <g:else>0</g:else>
+                </div>
+                <div>Schools</div>
               </div>
             </div>
           </div>
@@ -49,16 +62,23 @@
         </div>
       </div>
 
+      <g:set var="employeeTerm" value="${Term.findByCode('EMPLOYEE')}" />
+      <g:set var="employees" value="${PartyRole.findAllByType(employeeTerm)}" />
       <div class="col-lg-3 col-md-6">
         <div class="panel panel-green">
           <div class="panel-heading">
             <div class="row">
               <div class="col-xs-3">
-                <i class="fa fa-tasks fa-5x"></i>
+                <i class="fa fa-graduation-cap fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <div class="huge">12</div>
-                <div>New Tasks!</div>
+                <div class="huge">
+                  <g:if test='${employees}'>
+                    ${employees.size()}
+                  </g:if>
+                  <g:else>0</g:else>
+                </div>
+                <div>Professors</div>
               </div>
             </div>
           </div>
@@ -77,11 +97,11 @@
           <div class="panel-heading">
             <div class="row">
               <div class="col-xs-3">
-                <i class="fa fa-shopping-cart fa-5x"></i>
+                <i class="fa fa-child fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <div class="huge">124</div>
-                <div>New Orders!</div>
+                <div class="huge">0</div>
+                <div>Students</div>
               </div>
             </div>
           </div>
@@ -95,16 +115,22 @@
         </div>
       </div>
 
+      <g:set var="surveysAssignedCompleted" value="${SurveyAssigned.findAll()}" />
       <div class="col-lg-3 col-md-6">
         <div class="panel panel-red">
           <div class="panel-heading">
             <div class="row">
               <div class="col-xs-3">
-                <i class="fa fa-support fa-5x"></i>
+                <i class="fa fa-comments fa-5x"></i>
               </div>
               <div class="col-xs-9 text-right">
-                <div class="huge">13</div>
-                <div>Support Tickets!</div>
+                <div class="huge">
+                  <g:if test='${surveysAssignedCompleted}'>
+                    ${surveysAssignedCompleted.size()}
+                  </g:if>
+                  <g:else>0</g:else>
+                </div>
+                <div>Surveys</div>
               </div>
             </div>
           </div>
@@ -129,7 +155,7 @@
             <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
           </div>
           <div class="panel-body">
-            <div id="morris-area-chart"></div>
+            <div id="c3-line-chart"></div>
           </div>
         </div>
       </div>
@@ -278,5 +304,8 @@
     </div>
     <!-- /.row -->
 
+    <asset:javascript src="vendor/d3/d3.js"/>
+    <asset:javascript src="vendor/c3/c3.js"/>
+    <asset:javascript src="dashboard/admin/c3LineChart.js"/>
   </body>
 </html>

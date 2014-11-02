@@ -6,7 +6,7 @@ class Person extends Party {
   String lastName
 
   Gender gender
-  Date birthDate = new Date()
+  Date birthDate
 
   static mapping = {
     sort firstName: 'desc' 

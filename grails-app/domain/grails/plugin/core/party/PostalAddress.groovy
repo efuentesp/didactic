@@ -5,8 +5,9 @@ class PostalAddress implements Serializable {
   String address1
   String address2
   String postalCode
-
   String directions
+
+  GeographicBoundary geographicBoundary
 
   static hasMany = [
     partyPostalAddresses: PartyPostalAddress
@@ -17,6 +18,7 @@ class PostalAddress implements Serializable {
     address2 (nullable: true)
     postalCode (nullable: true)
     directions (nullable: true)
+    partyPostalAddresses (nullable: true)
   }
 
   String toString() {

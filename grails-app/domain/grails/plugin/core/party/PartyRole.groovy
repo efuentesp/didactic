@@ -10,8 +10,8 @@ class PartyRole implements Serializable {
     partyRelationships: PartyRelationship
   ]*/
 
-  Date fromDate = new Date()
-  Date thruDate = new Date()
+  Date fromDate
+  Date thruDate
 
   Term type
 

@@ -14,9 +14,13 @@ class PartyPostalAddress implements Serializable {
   static constrains = {
     fromDate (nullable: true)
     thruDate (nullable: true)
-    restricted (nullable: true)
-    dateCreated (nullable: true)
+    restricted (nullable: false)
+    dateCreated (nullable: false)
     lastUpdated (nullable: true)
+  }
+
+  String toString() {
+    "${party} : ${postalAddress}"
   }
 
 }

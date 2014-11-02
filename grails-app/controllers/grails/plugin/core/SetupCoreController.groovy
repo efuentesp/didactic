@@ -8,11 +8,18 @@ import grails.plugin.hr.party.*
 import grails.plugin.hr.competency.*
 import grails.plugin.survey.*
 
+import la.didactic.core.party.*
+
+import temp.*
+
 import grails.converters.JSON
 
 import org.apache.shiro.crypto.hash.Sha256Hash
 
 class SetupCoreController {
+
+  def partyService
+  def schoolService
 
   def index() {
 
@@ -663,7 +670,7 @@ class SetupCoreController {
 
           def answer = SurveyQuestionAnswer.findByCode(resp.response)
           if (!answer) {
-            log.error "Unable to retrieve Survey Answer: ${rresp.response}."
+            log.error "Unable to retrieve Survey Answer: ${resp.response}."
             throw new RuntimeException("Unable to retrieve Survey Answer: ${resp.response}.")
           }
           def surveyAssignedResponse = new SurveyAssignedResponse(surveyAssigned: surveyAssigned,
@@ -686,4 +693,81 @@ class SetupCoreController {
 
     [json: json]
   }
+
+  def loadCentrosTrabajoSep() {
+
+    def parentOrganization = Organization.findByName('SEP Estado de México')
+    if (!parentOrganization) {
+      log.error "Unable to retrieve parent Organization: SEP Estado de México."
+      throw new RuntimeException("Unable to retrieve parent Organization: SEP Estado de México.")
+    }
+
+    def parentPartyRole = PartyRole.findByParty(parentOrganization)
+    if (!parentPartyRole) {
+      log.error "Unable to retrieve parent Party Role: ${parentOrganization}."
+      throw new RuntimeException("Unable to retrieve parent Party Role: ${parentOrganization}.")
+    }
+
+    def record = CentrosTrabajoSep.list()
+
+    record.each { r->
+      def geographicBoundary = GeographicBoundary.get(r.municipio)
+      if (!geographicBoundary) {
+        log.error "Unable to retrieve Geographic Boundary: ${r.municipio}."
+        throw new RuntimeException("Unable to retrieve Geographic Boundary: ${r.municipio}.")
+      }
+
+      def postalAddress = new PostalAddress(address1: (r.domicilio ? r.domicilio : 'N/D'),
+                                            address2: (r.localidad ? r.localidad : 'N/D'),
+                                            geographicBoundary: geographicBoundary
+                                            )
+
+      def school = schoolService.registerSchool(parentPartyRole,
+                                                r.cct,
+                                                r.centroEducativo,
+                                                r.ambito,
+                                                r.control,
+                                                r.servicio,
+                                                postalAddress
+                                                )
+    }
+
+    render "Centros de Trabajo cargados: ${record.size()}"
+  }
+
+  def loadProfesores() {
+    def record = ProfesoresCct.list()
+
+    record.each { r->
+      def organizationUnit = School.findByCode(r.cct)
+      if (!organizationUnit) {
+        log.error "Unable to retrieve School: ${r.cct}."
+        throw new RuntimeException("Unable to retrieve School: ${r.cct}.")
+      }
+
+      def profesor = Profesores.get(r.profesor)
+      if (!profesor) {
+        log.error "Unable to retrieve Profesor: ${r.profesor}."
+        throw new RuntimeException("Unable to retrieve Profesor: ${r.profesor}.")
+      }
+
+      def email = new Email(email: profesor.correoElectronico,
+                            type: partyService.EMAIL_WORK)
+
+      def person = new Person(firstName: profesor.name,
+                              lastName: '.'
+                              )
+
+      def employee = new Employee(code: profesor.servidorPublicoClave,
+                                  party: person,
+                                  fromDate: new Date(),
+                                  thruDate: new Date()
+                                  )
+
+      def professor = schoolService.registerProfessor()
+      
+    }
+
+  }
+
 }

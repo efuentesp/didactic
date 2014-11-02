@@ -8,7 +8,7 @@ class SurveyQuestion implements Serializable {
   String title
   String description
   String instructions
-  Boolean optionaltQuestion = false
+  Boolean optionalQuestion = false
   Integer weight
 
   Term category

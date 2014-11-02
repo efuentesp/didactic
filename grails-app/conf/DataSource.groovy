@@ -16,7 +16,7 @@ environments {
      development {
         dataSource {
            //dbCreate = "create" // one of 'create', 'create-drop','update'
-             dbCreate = "create-drop"
+             dbCreate = "update"
            url = "jdbc:mysql://127.0.0.1:3306/didactic-dev?useUnicode=yes&characterEncoding=UTF-8"
            username = "admin"
            password = "toor"

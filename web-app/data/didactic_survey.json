@@ -8,7 +8,7 @@
       restricted: false,
       answers: [
         {
-          code: 'A01',
+          code: '1',
           title: 'Algunas veces',
           instructions: 'Instructions',
           default: false,
@@ -16,7 +16,7 @@
           restricted: false
         },
         {
-          code: 'A02',
+          code: '2',
           title: 'Frecuentemente',
           instructions: 'Instructions',
           default: false,
@@ -24,7 +24,7 @@
           restricted: false
         },
         {
-          code: 'A03',
+          code: '3',
           title: 'Muy frecuentemente',
           instructions: 'Instructions',
           default: false,
@@ -32,7 +32,7 @@
           restricted: false
         },
         {
-          code: 'A04',
+          code: '4',
           title: 'Siempre',
           instructions: 'Instructions',
           default: false,
@@ -41,38 +41,6 @@
         },
       ],
       questions: [
-        {
-          code: 'Q01',
-          title: 'Establezco una secuencia de los contenidos que desarrollaré durante la clase.',
-          description: 'Establezco una secuencia de los contenidos que desarrollaré durante la clase.',
-          instructions: 'Instructions',
-          optional: false,
-          weight: 10,
-          category: 'SELECCION_CONTENIDO',
-          restricted: false
-        },
-
-        {
-          code: 'Q02',
-          title: 'Busco la relación entre aprendizaje esperado y contenido.',
-          description: 'Busco la relación entre aprendizaje esperado y contenido.',
-          instructions: 'Instructions',
-          optional: false,
-          weight: 20,
-          category: 'SELECCION_CONTENIDO',
-          restricted: false
-        },
-
-        {
-          code: 'Q03',
-          title: 'Jerarquizo los contenidos de acuerdo a los conocimientos previos de los alumnos y su relación con los aprendizajes esperados.',
-          description: 'Jerarquizo los contenidos de acuerdo a los conocimientos previos de los alumnos y su relación con los aprendizajes esperados.',
-          instructions: 'Instructions',
-          optional: false,
-          weight: 30,
-          category: 'SELECCION_CONTENIDO',
-          restricted: false
-        },
 
       ]
     }

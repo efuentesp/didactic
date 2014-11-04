@@ -16,8 +16,8 @@ class PartyContactMechanism implements Serializable {
     fromDate (nullable: true)
     thruDate (nullable: true)
     comment (nullable: true)
-    restricted (nullable: true)
-    dateCreated (nullable: true)
+    restricted (nullable: false)
+    dateCreated (nullable: false)
     lastUpdated (nullable: true)
   }
 

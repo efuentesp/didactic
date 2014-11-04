@@ -12,6 +12,9 @@ import la.didactic.core.party.*
 
 import temp.*
 
+import groovy.time.TimeCategory
+import groovy.time.TimeDuration
+
 import grails.converters.JSON
 
 import org.apache.shiro.crypto.hash.Sha256Hash
@@ -736,6 +739,8 @@ class SetupCoreController {
   }
 
   def loadProfesores() {
+    Date start = new Date()
+
     def record = ProfesoresCct.list()
 
     record.each { r->
@@ -764,8 +769,13 @@ class SetupCoreController {
                                   thruDate: new Date()
                                   )
 
-      def professor = schoolService.registerProfessor()
+      def professor = schoolService.registerProfessor( organizationUnit, employee, email )
       
+      Date stop = new Date()
+
+      TimeDuration td = TimeCategory.minus( stop, start )
+
+      render "Profesores cargados: ${record.size()} (duración ${td})"
     }
 
   }

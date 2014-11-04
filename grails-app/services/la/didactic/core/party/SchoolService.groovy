@@ -2,9 +2,8 @@ package la.didactic.core.party
 
 import grails.plugin.core.taxonomy.Term
 
-import grails.plugin.core.party.PartyRole
-import grails.plugin.core.party.PostalAddress
-import grails.plugin.hr.party.Employee
+import grails.plugin.core.party.*
+import grails.plugin.hr.party.*
 
 import grails.plugin.core.party.PartyService
 
@@ -19,7 +18,7 @@ class SchoolService {
 
   def partyService
 
-  PartyRole registerSchool( PartyRole parentPartyRole, String cct, String name, String area, String control, String service, PostalAddress postalAddress = null ) {
+  School registerSchool( PartyRole parentPartyRole, String cct, String name, String area, String control, String service, PostalAddress postalAddress = null ) {
 
     def organization = partyService.createOrganization(name, ORGANIZATION_TYPE, postalAddress)
 
@@ -88,7 +87,7 @@ class SchoolService {
     return partyRole
   }
 
-  PartyRole registerProfessor( PartyRole organizationUnit, Employee employee ) {
+  Employee registerProfessor( PartyRole organizationUnit, Employee employee, ContactMechanism contactMechanish ) {
 
   }
 

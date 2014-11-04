@@ -8,12 +8,16 @@ class Party implements Serializable {
 
   static hasMany = [
     partyRoles: PartyRole,
-    partyPostalAddresses: PartyPostalAddress
+    partyPostalAddresses: PartyPostalAddress,
+    partyContactMechanisms: PartyContactMechanism
   ]
 
   static constrains = {
-    restricted (nullable: true)
-    dateCreated (nullable: true)
+    restricted (nullable: false)
+    partyRoles (nullable: true)
+    partyPostalAddresses (nullable: true)
+    partyContactMechanisms (nullable: true)
+    dateCreated (nullable: false)
     lastUpdated (nullable: true)
   }
 

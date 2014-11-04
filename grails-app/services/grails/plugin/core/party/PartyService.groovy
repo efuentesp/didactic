@@ -1,5 +1,7 @@
 package grails.plugin.core.party
 
+import java.util.UUID
+
 import grails.plugin.core.taxonomy.Term
 
 class PartyService {
@@ -28,8 +30,21 @@ class PartyService {
       public static final String EMAIL_PERSONAL = 'EMAIL_PERSONAL'
       public static final String EMAIL_WORK = 'EMAIL_WORK'
 
-  Party createPerson() {
+  Person createPerson( Person person, Map params = [:] ) {
+    person.uuid = UUID.randomUUID().toString()
 
+    if (!person.save()) {
+      log.error "Unable to create Person: ${person}."
+      person.errors.each { log.error it }
+
+      throw new RuntimeException("Unable to create Person: ${person}.")
+    }
+
+    if (params.contactMechanism) {
+      def partyContactMechanism = createPartyContactMechanism( person, params.contactMechanism )
+    }
+
+    return person
   }
 
   Organization createOrganization( String name, String typeCode, PostalAddress postalAddress = null ) {
@@ -85,6 +100,44 @@ class PartyService {
     }
 
     return organization
+  }
+
+  PartyContactMechanism createPartyContactMechanism( Party party, ContactMechanism contactMechanism, Map parms = [:] ) {
+    if (contactMechanism.type.vocabulary.code != CONTACT_MECHANISM_TYPE) {
+      log.error "${contactMechanism.type} is not a valid Contact Mechanism type."
+      throw new RuntimeException("${contactMechanism.type} is not a valid Contact Mechanism type.")
+    }
+
+    if (!contactMechanism.save()) {
+      log.error "Unable to create Contact Mechanism: ${contactMechanism}."
+      contactMechanism.errors.each { log.error it }
+
+      throw new RuntimeException("Unable to create Contact Mechanism: ${contactMechanism}.")
+    }
+
+    def partyContactMechanism = new PartyContactMechanism(party: party,
+                                                          contactMechanism: contactMechanism,
+                                                          restricted: (params.restricted ? params.restricted : false),
+                                                          comment: (params.comment ? params.comment : null),
+                                                          fromDate: (params.fromDate ? params.fromDate : new Date()),
+                                                          thruDate: (params.thruDate ? params.thruDate : new Date())
+                                                          )
+    if (!partyContactMechanism.save()) {
+      log.error "Unable to create Party Contact Mechanism: ${partyContactMechanism}."
+      partyContactMechanism.errors.each { log.error it }
+
+      throw new RuntimeException("Unable to create Party Contact Mechanism: ${partyContactMechanism}.")
+    }
+
+    party.addToPartyContactMechanisms(partyContactMechanism)
+    if (!party.save()) {
+      log.error "Unable to add Party Contact Mechanism: '${partyContactMechanism}'' to Party: '${party}'."
+      party.errors.each { log.error it }
+
+      throw new RuntimeException("Unable to add Party Contact Mechanism: '${partyContactMechanism}'' to Party: '${party}'.")
+    }
+
+    return partyContactMechanism
   }
 
   PartyRole createPartyRole( Party party, String typeCode ) {

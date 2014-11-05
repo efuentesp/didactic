@@ -6,10 +6,11 @@ import grails.plugin.core.party.*
 import grails.plugin.hr.party.*
 
 import grails.plugin.core.party.PartyService
+import grails.plugin.hr.party.CompanyService
 
 class SchoolService {
   
-  public static final String ORGANIZATION_TYPE = 'EDUCATIONAL_SERVICE_PROVIDER'
+  public static final String EDUCATIONAL_SERVICE_PROVIDER = 'EDUCATIONAL_SERVICE_PROVIDER'
   public static final String PARTY_ROLE_TYPE = 'PARTY_ROLE_TYPE'
   public static final String CAMPUS_PARTY_ROLE_TYPE = 'CAMPUS'
   public static final String EDUCATIONAL_AREA_TYPE = 'EDUCATIONAL_AREA_TYPE'
@@ -17,10 +18,11 @@ class SchoolService {
   public static final String EDUCATIONAL_SERVICE_TYPE = 'EDUCATIONAL_SERVICE_TYPE'
 
   def partyService
+  def companyService
 
   School registerSchool( PartyRole parentPartyRole, String cct, String name, String area, String control, String service, PostalAddress postalAddress = null ) {
 
-    def organization = partyService.createOrganization(name, ORGANIZATION_TYPE, postalAddress)
+    def organization = partyService.createOrganization(name, EDUCATIONAL_SERVICE_PROVIDER, postalAddress)
 
     def type = Term.findByCode(CAMPUS_PARTY_ROLE_TYPE)
     if (!type) {
@@ -87,8 +89,16 @@ class SchoolService {
     return partyRole
   }
 
-  Employee registerProfessor( PartyRole organizationUnit, Employee employee, ContactMechanism contactMechanish ) {
+  Employee hireProfessor( PartyRole organization, Employee employee, Map params = [:] ) {
+    println "hireProfessor ${params}"
+    if (organization.type.code != CAMPUS_PARTY_ROLE_TYPE) {
+      log.error "${organization.type} is not a valid School."
+      throw new RuntimeException("${organization.type} is not a valid School.")
+    }
 
+    def professor = companyService.hireEmployee(organization, employee, [contactMechanism: params.contactMechanism])
+
+    return professor
   }
 
 }

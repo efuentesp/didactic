@@ -4,4 +4,8 @@ import grails.plugin.core.party.PartyRole
 
 class SurveyInterviewee extends PartyRole {
 
+  String toString() {
+    party
+  }
+
 }

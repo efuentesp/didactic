@@ -21,4 +21,8 @@ class PartyContactMechanism implements Serializable {
     lastUpdated (nullable: true)
   }
 
+  String toString() {
+    "${party} ${contactMechanism}"
+  }
+
 }

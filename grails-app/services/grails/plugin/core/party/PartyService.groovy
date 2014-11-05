@@ -5,6 +5,7 @@ import java.util.UUID
 import grails.plugin.core.taxonomy.Term
 
 class PartyService {
+  public static final String GENDER_NA_TYPE = 'N/A'
 
   public static final String GEOGRAPHIC_BOUNDARY_TYPE = 'GEOGRAPHIC_BOUNDARY_TYPE'
   
@@ -31,7 +32,16 @@ class PartyService {
       public static final String EMAIL_WORK = 'EMAIL_WORK'
 
   Person createPerson( Person person, Map params = [:] ) {
+    println "createPerson: ${params}"
+    def genderUnknown = Gender.findByCode(GENDER_NA_TYPE)
+    if (!genderUnknown) {
+      log.error "Unable to retrive Gender type: '${GENDER_NA_TYPE}'."
+      throw new RuntimeException("Unable to retrive Gender type: '${GENDER_NA_TYPE}'.")
+    }
+
     person.uuid = UUID.randomUUID().toString()
+    person.birthDate = (params.birthDate ? params.birthDate : new Date())
+    person.gender = (params.gender ? params.gender : genderUnknown)
 
     if (!person.save()) {
       log.error "Unable to create Person: ${person}."
@@ -102,7 +112,8 @@ class PartyService {
     return organization
   }
 
-  PartyContactMechanism createPartyContactMechanism( Party party, ContactMechanism contactMechanism, Map parms = [:] ) {
+  PartyContactMechanism createPartyContactMechanism( Party party, ContactMechanism contactMechanism, Map params = [:] ) {
+    println "createPartyContactMechanism: ${contactMechanism.type} ${params}"
     if (contactMechanism.type.vocabulary.code != CONTACT_MECHANISM_TYPE) {
       log.error "${contactMechanism.type} is not a valid Contact Mechanism type."
       throw new RuntimeException("${contactMechanism.type} is not a valid Contact Mechanism type.")
@@ -118,7 +129,7 @@ class PartyService {
     def partyContactMechanism = new PartyContactMechanism(party: party,
                                                           contactMechanism: contactMechanism,
                                                           restricted: (params.restricted ? params.restricted : false),
-                                                          comment: (params.comment ? params.comment : null),
+                                                          comment: (params.comment ? params.comment : '.'),
                                                           fromDate: (params.fromDate ? params.fromDate : new Date()),
                                                           thruDate: (params.thruDate ? params.thruDate : new Date())
                                                           )

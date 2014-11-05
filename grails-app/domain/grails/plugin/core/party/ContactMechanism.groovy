@@ -14,4 +14,8 @@ class ContactMechanism implements Serializable {
     type (nullable: false)
   }
 
+  String toString() {
+    type
+  }
+
 }

@@ -9,4 +9,8 @@ class Employee extends PartyRole {
   static constraints = {
     code (nullable: false, blank: false, unique: true)
   }
+
+  String toString() {
+    party
+  }
 }

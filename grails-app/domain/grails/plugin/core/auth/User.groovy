@@ -12,7 +12,7 @@ class User implements Serializable {
 	String nonVerifiedEmail
 	String emailHash
 	String timeZone
-	String language
+	String userLanguage
 	Date expiration
 	boolean enabled = false
 	
@@ -43,7 +43,7 @@ class User implements Serializable {
 		nonVerifiedEmail(nullable:true, blank:false, email: true)
 		emailHash(nullable: true, blank:true)
 		timeZone(nullable: true)
-		language(nullable: true)
+		userLanguage(nullable: true)
 		roles (nullable: false)
 		enabled (nullable: false)
 		restricted (nullable: false)

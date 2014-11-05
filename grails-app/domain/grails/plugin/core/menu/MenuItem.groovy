@@ -38,4 +38,8 @@ class MenuItem implements Serializable {
     restricted (nullable: false)
   }
 
+  String toString() {
+    "${title} : ${linkController}/${linkAction}"
+  }
+
 }

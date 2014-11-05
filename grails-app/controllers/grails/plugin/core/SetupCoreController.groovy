@@ -698,6 +698,7 @@ class SetupCoreController {
   }
 
   def loadCentrosTrabajoSep() {
+    Date start = new Date()
 
     def parentOrganization = Organization.findByName('SEP Estado de México')
     if (!parentOrganization) {
@@ -735,7 +736,9 @@ class SetupCoreController {
                                                 )
     }
 
-    render "Centros de Trabajo cargados: ${record.size()}"
+    Date stop = new Date()
+    TimeDuration td = TimeCategory.minus( stop, start )
+    render "Centros de Trabajo cargados: ${record.size()} (duración ${td})"
   }
 
   def loadProfesores() {
@@ -744,39 +747,44 @@ class SetupCoreController {
     def record = ProfesoresCct.list()
 
     record.each { r->
-      def organizationUnit = School.findByCode(r.cct)
-      if (!organizationUnit) {
+      def school = School.findByCode(r.cct)
+      if (!school) {
         log.error "Unable to retrieve School: ${r.cct}."
         throw new RuntimeException("Unable to retrieve School: ${r.cct}.")
       }
 
-      def profesor = Profesores.get(r.profesor)
+      def profesor = Profesores.get(r.id)
       if (!profesor) {
-        log.error "Unable to retrieve Profesor: ${r.profesor}."
-        throw new RuntimeException("Unable to retrieve Profesor: ${r.profesor}.")
+        log.error "Unable to retrieve Profesor: ${r.id}."
+        throw new RuntimeException("Unable to retrieve Profesor: ${r.id}.")
       }
 
-      def email = new Email(email: profesor.correoElectronico,
-                            type: partyService.EMAIL_WORK)
+      if (!Employee.findByCode(profesor.servidorPublicoClave) && profesor.servidorPublicoClave) {
+        def emailType = Term.findByCode(partyService.EMAIL_WORK)
+        if (!emailType) {
+          log.error "Unable to retrive Term: ${partyService.EMAIL_WORK}."
+          throw new RuntimeException("Unable to retrive Term: ${partyService.EMAIL_WORK}.")
+        }
 
-      def person = new Person(firstName: profesor.name,
-                              lastName: '.'
-                              )
+        def email = new Email(email: profesor.correoElectronico,
+                              type: emailType)
 
-      def employee = new Employee(code: profesor.servidorPublicoClave,
-                                  party: person,
-                                  fromDate: new Date(),
-                                  thruDate: new Date()
-                                  )
+        def person = new Person(firstName: profesor.nombre,
+                                lastName: '.'
+                                )
 
-      def professor = schoolService.registerProfessor( organizationUnit, employee, email )
-      
-      Date stop = new Date()
+        def employee = new Employee(code: profesor.servidorPublicoClave,
+                                    party: person
+                                    )
 
-      TimeDuration td = TimeCategory.minus( stop, start )
+        def professor = schoolService.hireProfessor( school, employee, [contactMechanism: email] )
+      }
 
-      render "Profesores cargados: ${record.size()} (duración ${td})"
     }
+
+    Date stop = new Date()
+    TimeDuration td = TimeCategory.minus( stop, start )
+    render "Profesores cargados: ${record.size()} (duración ${td})"
 
   }
 

@@ -82,5 +82,7 @@ grails.project.dependency.resolution = {
         }
 
         provided ":codenarc:0.22"
+        test ":code-coverage:2.0.3-2"
+        compile ":gmetrics:0.3.1"
     }
 }

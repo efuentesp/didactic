@@ -1,0 +1,3 @@
+grails codenarc
+grails test-app -coverage
+grails gmetrics

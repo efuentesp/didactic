@@ -785,7 +785,128 @@ class SetupCoreController {
     Date stop = new Date()
     TimeDuration td = TimeCategory.minus( stop, start )
     render "Profesores cargados: ${record.size()} (duración ${td})"
+  }
 
+  def loadSurveyQuestions() {
+    Date start = new Date()
+
+    def surveys = Survey.list()
+
+    surveys.each { s->
+      println "Survey: ${s}"
+      s.questions.each { q->
+        println "Question: ${q}"
+        s.answers.each { a ->
+          println "Answer: ${a}"
+          def questionAnswer = new SurveyQuestionAnswer(code: a.code,
+                                                        title: a.title,
+                                                        instructions: a.instructions,
+                                                        defaultAnswer: a.defaultAnswer,
+                                                        weight: a.weight,
+                                                        restricted: a.restricted
+                                                        )
+          q.addToAnswers(questionAnswer)
+        }
+        if (!q.save()) {
+          log.error "Unable to update Survey Question: ${q} with answers."
+          q.errors.each { log.error it }
+
+          throw new RuntimeException("Unable to update Survey Question: ${q} with answers.")
+        }
+      }
+    }
+
+
+    Date stop = new Date()
+    TimeDuration td = TimeCategory.minus( stop, start )
+    render "Respuestas a Preguntas de Encuestas cargadas (duración ${td})"
+  }
+
+  def loadResultadoEncuesta() {
+    Date start = new Date()
+
+    def survey = Survey.findByCode('NECESIDADES_CAPACITACION')
+    if (!survey) {
+      log.error "Unable to retrieve Survey: 'NECESIDADES_CAPACITACION'."
+      throw new RuntimeException("Unable to retrieve Survey: 'NECESIDADES_CAPACITACION'.")
+    }
+
+    def record = EncuestaEncabezado.list()
+
+    record.each { r->
+      def p = Profesores.get(r.profesorId)
+      if (!p) {
+        log.error "Unable to retrieve Profesor: ${r.profesorId}."
+        throw new RuntimeException("Unable to retrieve Profesor: ${r.profesorId}.")
+      }
+
+      def professor = Employee.findByCode(p.servidorPublicoClave)
+      if (!professor) {
+        log.error "Unable to retrieve Professor: ${p.servidorPublicoClave}."
+        println "${p.servidorPublicoClave}"
+        //throw new RuntimeException("Unable to retrieve Professor: ${p.servidorPublicoClave}.")
+      } else {
+/*      def type = Term.findByCode('SURVEY_INTERVIEWEE')
+        if (!type) {
+          log.error "Unable to retrieve Party Role: INTERVIEWEE"
+          throw new RuntimeException("Unable to retrieve Party Role: INTERVIEWEE")
+        }
+
+        def interviewee = new SurveyInterviewee(party: professor.party,
+                                                fromDate: new Date(),
+                                                thruDate: new Date(),
+                                                type: type,
+                                                restricted: false
+                                                )*/
+
+        def surveyAssigned = new SurveyAssigned(interviewee: professor,
+                                                survey: survey,
+                                                dateAssigned: Date.parse("yyyy-MM-dd", r.fechaInicio),
+                                                dateResponded: Date.parse("yyyy-MM-dd", r.fechaFin)
+                                                )
+        if (!surveyAssigned.save()) {
+          log.error "Unable to add SurveyAssigned: ${surveyAssigned}."
+          surveyAssigned.errors.each { log.error it }
+
+          throw new RuntimeException("Unable to add SurveyAssigned: ${surveyAssigned}.")
+        }
+
+        def encuestaDetalle = EncuestaDetalle.findAllBySurveyMonkeyId(r.surveyMonkeyId)
+
+        encuestaDetalle.each { d->
+          def sQuestion = SurveyQuestion.findByCode(d.estandarId)
+          if (!sQuestion) {
+            log.error "Unable to retrieve Survey Question: ${sQuestion}."
+            throw new RuntimeException("Unable to retrieve Survey Question: ${sQuestion}.")
+          }
+
+          def sQuestionAnswer = SurveyQuestionAnswer.findByQuestionAndCode(sQuestion, d.escalaId)
+          if (!sQuestionAnswer) {
+            log.error "Unable to retrieve Survey Question Answer: ${sQuestionAnswer}."
+            throw new RuntimeException("Unable to retrieve Survey Question Answer: ${sQuestionAnswer}.")
+          }
+
+          def surveyAssignedResponse = new SurveyAssignedResponse(surveyAssigned: surveyAssigned,
+                                                                question: sQuestion,
+                                                                answer: sQuestionAnswer,
+                                                                dateResponded: Date.parse("yyyy-MM-dd", r.fechaFin)
+                                                                )
+          if (!surveyAssignedResponse.save()) {
+            log.error "Unable to add SurveyAssignedResponse: ${surveyAssignedResponse}."
+            surveyAssignedResponse.errors.each { log.error it }
+
+            throw new RuntimeException("Unable to add SurveyAssignedResponse: ${surveyAssignedResponse}.")
+          }
+
+        }
+        
+      }
+
+    }
+
+    Date stop = new Date()
+    TimeDuration td = TimeCategory.minus( stop, start )
+    render "Resultados de encuesta cargadas: ${record.size()} (duración ${td})"
   }
 
 }

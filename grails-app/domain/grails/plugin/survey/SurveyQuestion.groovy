@@ -17,7 +17,7 @@ class SurveyQuestion implements Serializable {
   Date dateCreated = new Date()
   Date lastUpdated = new Date()
 
-  static belongsto = [survey: Survey]
+  static belongsTo = [survey: Survey]
 
   static hasMany = [answers: SurveyQuestionAnswer]
 

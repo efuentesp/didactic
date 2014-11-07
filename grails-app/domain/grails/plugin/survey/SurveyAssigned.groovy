@@ -1,12 +1,14 @@
 package grails.plugin.survey
 
+import grails.plugin.core.party.PartyRole
+
 class SurveyAssigned implements Serializable {
 
   Date dateAssigned = new Date()
   Date dateResponded = new Date()
 
   static belongsTo = [
-    interviewee: SurveyInterviewee,
+    interviewee: PartyRole,
     survey: Survey
   ]
 

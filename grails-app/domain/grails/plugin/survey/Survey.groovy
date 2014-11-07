@@ -22,6 +22,7 @@ class Survey implements Serializable {
     description (nullable: true)
     instructions (nullable: true)
     answers (nullable: true)
+    questions (nullable: true)
     restricted (nullable: false)
     dateCreated (nullable: true)
     lastUpdated (nullable: true)

@@ -8,6 +8,7 @@ class SurveyQuestionAnswer implements Serializable {
   String title
   String instructions
   Boolean defaultAnswer = false
+  Integer value = 0
   Integer weight
 
   boolean restricted = false
@@ -16,12 +17,17 @@ class SurveyQuestionAnswer implements Serializable {
 
   static belongsTo = [question: SurveyQuestion]
 
+  static mapping = {
+    sort weight: 'asc'
+  }
+
   static constrains = {
     question (nullable: false)
     code (nullable: false)
     title (nullable: false)
     instructions (nullable: true)
     defaultAnswer (nullable: false)
+    value (nullable: false)
     weight (nullable: false)
     restricted (nullable: false)
     dateCreated (nullable: true)

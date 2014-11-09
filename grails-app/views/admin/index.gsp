@@ -8,7 +8,7 @@
     <title>Welcome to Didactic.la</title>
 
     <asset:stylesheet src="dashboard.css"/>
-    <asset:stylesheet src="c3.min.css"/>
+%{--     <asset:stylesheet src="c3.min.css"/> --}%
   </head>
 
   <body>
@@ -155,7 +155,8 @@
             <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
           </div>
           <div class="panel-body">
-            <div id="c3-line-chart"></div>
+%{--             <div id="c3-line-chart"></div> --}%
+            <div id="div-line-chart"></div>
           </div>
         </div>
       </div>
@@ -304,8 +305,11 @@
     </div>
     <!-- /.row -->
 
-    <asset:javascript src="vendor/d3/d3.js"/>
+%{--     <asset:javascript src="vendor/d3/d3.js"/>
     <asset:javascript src="vendor/c3/c3.js"/>
-    <asset:javascript src="dashboard/admin/c3LineChart.js"/>
+    <asset:javascript src="dashboard/admin/c3LineChart.js"/> --}%
+    <asset:javascript src="vendor/globalize/globalize.js"/>
+    <asset:javascript src="vendor/devextreme/dx.chartjs.js"/>
+    <asset:javascript src="dashboard/admin/devLineChart.js"/>
   </body>
 </html>

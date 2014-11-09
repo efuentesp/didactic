@@ -15,7 +15,7 @@ class Term implements Serializable {
   static belongsTo = [vocabulary: Vocabulary]
 
   static mapping = {
-    sort name: 'desc' 
+    sort weight: 'asc' 
   }
 
   static constrains = {

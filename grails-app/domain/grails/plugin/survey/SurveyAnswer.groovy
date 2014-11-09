@@ -14,6 +14,10 @@ class SurveyAnswer implements Serializable {
 
   static belongsTo = [survey: Survey]
 
+  static mapping = {
+    sort weight: 'asc'
+  }
+
   static constrains = {
     survey (nullable: false)
     code (nullable: false)

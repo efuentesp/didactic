@@ -21,6 +21,10 @@ class SurveyQuestion implements Serializable {
 
   static hasMany = [answers: SurveyQuestionAnswer]
 
+  static mapping = {
+    sort weight: 'asc'
+  }
+
   static constrains = {
     survey (nullable: false)
     code (nullable: false)

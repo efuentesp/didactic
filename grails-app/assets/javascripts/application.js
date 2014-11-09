@@ -9,6 +9,8 @@
 //= require vendor/bootstrap/bootstrap
 // require vendor/d3/d3
 // require vendor/c3/c3
+// require vendor/globalize/globalize
+// require vendor/devextreme/dx.chartjs
 // require_tree dashboard
 //= require_self
 

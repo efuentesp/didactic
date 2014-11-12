@@ -152,11 +152,43 @@
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
+            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Competency Indicators Chart</h3>
           </div>
           <div class="panel-body">
 %{--             <div id="c3-line-chart"></div> --}%
-            <div id="div-line-chart"></div>
+            <div id="dev-indicators-chart"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Competency Chart</h3>
+          </div>
+          <div class="panel-body">
+            <div id="dev-competency-chart"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Category Chart</h3>
+          </div>
+          <div class="panel-body">
+            <div id="dev-category-chart"></div>
           </div>
         </div>
       </div>

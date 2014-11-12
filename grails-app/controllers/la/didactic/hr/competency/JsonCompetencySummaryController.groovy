@@ -10,27 +10,32 @@ class JsonCompetencySummaryController {
 
   def index() {
 
-    def columns = [
-      x: ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12','c13','c14','c15','c16','c17','c18','c19','c20','c21','c22','c23','c24','c25','c26','c27','c28','c29','c30','c31','c32','c33','c34','c35', 'c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12','c13','c14','c15','c16','c17','c18','c19','c20','c21','c22','c23','c24','c25','c26','c27','c28','c29','c30','c31','c32','c33','c34','c35', 'c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12','c13','c14','c15','c16','c17','c18','c19','c20','c21','c22','c23','c24','c25','c26','c27','c28','c29','c30','c31','c32','c33','c34','c35', 'c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12','c13','c14','c15','c16','c17','c18','c19','c20','c21','c22','c23','c24','c25','c26','c27','c28','c29','c30','c31','c32','c33','c34','c35'],
-      data1: [4,2,2,4,2,2,3,2,4,2,1,2,4,1,4,4,3,3,2,3,1,1,2,3,4,4,1,4,3,2,3,2,4,2,4, 4,2,2,4,2,2,3,2,4,2,1,2,4,1,4,4,3,3,2,3,1,1,2,3,4,4,1,4,3,2,3,2,4,2,4, 4,2,2,4,2,2,3,2,4,2,1,2,4,1,4,4,3,3,2,3,1,1,2,3,4,4,1,4,3,2,3,2,4,2,4, 4,2,2,4,2,2,3,2,4,2,1,2,4,1,4,4,3,3,2,3,1,1,2,3,4,4,1,4,3,2,3,2,4,2,4],
-      data2: [4,4,2,4,2,3,2,4,3,2,1,2,4,4,2,1,2,2,1,1,3,2,4,3,4,1,2,1,4,4,4,4,3,3,3, 4,4,2,4,2,3,2,4,3,2,1,2,4,4,2,1,2,2,1,1,3,2,4,3,4,1,2,1,4,4,4,4,3,3,3, 4,2,2,4,2,2,3,2,4,2,1,2,4,1,4,4,3,3,2,3,1,1,2,3,4,4,1,4,3,2,3,2,4,2,4, 4,2,2,4,2,2,3,2,4,2,1,2,4,1,4,4,3,3,2,3,1,1,2,3,4,4,1,4,3,2,3,2,4,2,4]
-    ]
+    def jsonCategory = []
+    def jsonCompetency = []
+    def jsonIndicator = []
 
-    def names = [
-      data1: 'Self evaluation',
-      data2: 'Third-party evaluation'
-    ]
+    def dataChart = surveyService.chartCompetencySurveyResults()
 
-    def data = [columns: columns, names: names]
+    dataChart.categoryChart.x.eachWithIndex { e, i ->
+      def element = [ x: dataChart.categoryChart.x[i], data1: dataChart.categoryChart.data1[i], data2: dataChart.categoryChart.data2[i], xLabel: dataChart.categoryChart.xLabel[i] ]
+      jsonCategory << element
+    }
 
-    render data as JSON
+    dataChart.competencyChart.x.eachWithIndex { e, i ->
+      def element = [ x: dataChart.competencyChart.x[i], data1: dataChart.competencyChart.data1[i], data2: dataChart.competencyChart.data2[i], xLabel: dataChart.competencyChart.xLabel[i] ]
+      jsonCompetency << element
+    }
 
-    def datax = surveyService.chartCompetencySurveyResults()
+    dataChart.indicatorChart.x.eachWithIndex { e, i ->
+      def element = [ x: dataChart.indicatorChart.x[i], data1: dataChart.indicatorChart.data1[i], data2: dataChart.indicatorChart.data2[i], xLabel: dataChart.indicatorChart.xLabel[i] ]
+      jsonIndicator << element
+    }
 
-//println data
-println datax
+    def json = [ y: dataChart.y, labels: dataChart.labels, category: jsonCategory, competency: jsonCompetency, indicator: jsonIndicator ]
 
-    //render datax as JSON
+println json as JSON
+
+    render json as JSON
     
   }
 

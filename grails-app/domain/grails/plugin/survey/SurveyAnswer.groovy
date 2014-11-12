@@ -6,6 +6,7 @@ class SurveyAnswer implements Serializable {
   String title
   String instructions
   Boolean defaultAnswer = false
+  Integer value = 0
   Integer weight
 
   boolean restricted = false
@@ -24,6 +25,7 @@ class SurveyAnswer implements Serializable {
     title (nullable: false)
     instructions (nullable: true)
     defaultAnswer (nullable: false)
+    value (nullable: false)
     weight (nullable: false)
     restricted (nullable: false)
     dateCreated (nullable: true)

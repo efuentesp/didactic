@@ -29,23 +29,26 @@ class SurveyService {
 
     def charts = [
       y: [],
-      category:   [ x: [], data1: [], data2: [], zum: [:], kount: [:] ],
-      competency: [ x: [], data1: [], data2: [], zum: [:], kount: [:] ],
-      indicator:  [ x: [], data1: [], data2: [], zum: [:], kount: [:] ],
+      category:   [ x: [], data1: [], data2: [], xLabel: [], zum: [:], kount: [:] ],
+      competency: [ x: [], data1: [], data2: [], xLabel: [], zum: [:], kount: [:] ],
+      indicator:  [ x: [], data1: [], data2: [], xLabel: [], zum: [:], kount: [:] ],
     ]
 
-    survey.answers.each { a->
+    def surveyAnswers = SurveyAnswer.findAllBySurvey(survey)
+    surveyAnswers.each { a->
       charts.y << a.title
     }
 
     def questionCategories = Term.findAllByVocabularyAndParent(vocabularyQuestionCategory, null)
     questionCategories.each { category->
       charts.category.x << "${category.name}"
+      charts.category.xLabel << "${category.name}"
       charts.category.zum[category.code] = 0
       charts.category.kount[category.code] = 0
       def competencies = Term.findAllByParent(category)
       competencies.each { competency->
         charts.competency.x << "${competency.name}"
+        charts.competency.xLabel << "${competency.name}"
         charts.competency.zum[competency.code] = 0
         charts.competency.kount[competency.code] = 0
       }
@@ -54,6 +57,7 @@ class SurveyService {
     def surveyQuestions = SurveyQuestion.findAllBySurvey(survey)
     surveyQuestions.each { q->
       charts.indicator.x << "C${q.weight}"
+      charts.indicator.xLabel << "${q.title}"
       charts.indicator.zum[q.code] = 0
     }
 
@@ -69,25 +73,33 @@ class SurveyService {
     }
 
     charts.category.zum.each { key, value ->
-      charts.category.data1 << ( charts.category.kount[key] > 0 ? Math.floor( value / charts.category.kount[key] ) : 0 )
+      def avgValue = charts.category.kount[key] > 0 ? Math.floor( value / charts.category.kount[key] ) : 0
+      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
+      charts.category.data1 << valueLevel.title
     }
 
     charts.competency.zum.each { key, value ->
-      charts.competency.data1 << ( charts.competency.kount[key] > 0 ? Math.floor( value / charts.competency.kount[key] ) : 0 )
+      def avgValue = charts.competency.kount[key] > 0 ? Math.floor( value / charts.competency.kount[key] ) : 0
+      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
+      charts.competency.data1 << valueLevel.title
     }
 
     charts.indicator.zum.each { key, value->
-      charts.indicator.data1 << ( surveysAssigned.size() > 0 ? Math.floor( value / surveysAssigned.size() ) : 0 )
+      def avgValue = surveysAssigned.size() > 0 ? Math.floor( value / surveysAssigned.size() ) : 0
+      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
+      charts.indicator.data1 << valueLevel.title
     }
 
-    def columns = [x: charts.category.x, data1: charts.category.data1, data2: charts.category.data1]
+    def chart1 = [x: charts.category.x,   data1: charts.category.data1,   data2: charts.category.data1,   xLabel: charts.category.xLabel]
+    def chart2 = [x: charts.competency.x, data1: charts.competency.data1, data2: charts.competency.data1, xLabel: charts.competency.xLabel]
+    def chart3 = [x: charts.indicator.x,  data1: charts.indicator.data1,  data2: charts.indicator.data1,  xLabel: charts.indicator.xLabel]
 
-    def names = [
+    def labels = [
       data1: 'Self evaluation',
       data2: 'Third-party evaluation'
     ]
 
-    return [columns: columns, names: names]
+    return [y: charts.y, labels: labels, categoryChart: chart1, competencyChart: chart2, indicatorChart: chart3]
 
   }
 

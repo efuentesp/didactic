@@ -19,6 +19,10 @@ class Person extends Party {
     birthDate nullable: true
   }
 
+  def fullName() {
+    "${firstName} ${lastName}"
+  }
+
   String toString() {
     "${firstName} ${lastName}"
   }

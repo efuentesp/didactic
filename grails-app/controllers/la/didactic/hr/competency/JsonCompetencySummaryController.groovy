@@ -23,6 +23,7 @@ class JsonCompetencySummaryController {
       } else {
         dataChart = surveyService.chartCompetencySurveyResults()
       }
+//println dataChart
 
     dataChart.categoryChart.x.eachWithIndex { e, i ->
       def element = [ x: dataChart.categoryChart.x[i], data1: dataChart.categoryChart.data1[i], data2: dataChart.categoryChart.data2[i], xLabel: dataChart.categoryChart.xLabel[i] ]

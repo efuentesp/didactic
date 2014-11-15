@@ -16,7 +16,6 @@ console.log(json.indicator);
       commonSeriesSettings: {
         type: 'bar',
         argumentField: 'x',
-        valueField: 'data1',
         tagField: 'xLabel'
       },
       tooltip: {
@@ -36,8 +35,8 @@ console.log(json.indicator);
         title: {
           text: 'Level'
         },
-        type: 'discrete',
-        categories: json.y
+        min: 0,
+        max: 4
       }
     });
  
@@ -46,8 +45,7 @@ console.log(json.indicator);
       dataSource: dataCompetencies,
       commonSeriesSettings: {
         type: 'bar',
-        argumentField: 'x',   
-        valueField: 'data1'
+        argumentField: 'x'
       },
       tooltip: { enabled: true },
       title: '',
@@ -63,8 +61,8 @@ console.log(json.indicator);
         title: {
           text: 'Level'
         },
-        type: 'discrete',
-        categories: json.y
+        min: 0,
+        max: 4
       }
     });
 
@@ -73,8 +71,7 @@ console.log(json.indicator);
       dataSource: dataCategories,
       commonSeriesSettings: {
         type: 'bar',
-        argumentField: 'x',
-        valueField: 'data1'
+        argumentField: 'x'
       },
       tooltip: {
         enabled: true
@@ -92,8 +89,8 @@ console.log(json.indicator);
         title: {
           text: 'Level'
         },
-        type: 'discrete',
-        categories: json.y
+        min: 0,
+        max: 4
       }
     });
 

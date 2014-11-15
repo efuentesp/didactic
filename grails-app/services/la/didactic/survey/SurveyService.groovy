@@ -5,8 +5,10 @@ import grails.plugin.core.taxonomy.Term
 
 import grails.plugin.hr.party.Employee
 
+import grails.plugin.hr.competency.CompetencyLevel
+
 import grails.plugin.survey.Survey
-import grails.plugin.survey.SurveyAnswer
+// import grails.plugin.survey.SurveyAnswer
 import grails.plugin.survey.SurveyQuestion
 import grails.plugin.survey.SurveyAssigned
 
@@ -36,9 +38,14 @@ class SurveyService {
       indicator:  [ x: [], data1: [], data2: [], xLabel: [], zum: [:], kount: [:] ],
     ]
 
-    def surveyAnswers = SurveyAnswer.findAllBySurvey(survey)
+/*    def surveyAnswers = SurveyAnswer.findAllBySurvey(survey)
     surveyAnswers.each { a->
       charts.y << a.title
+    }*/
+
+    def competencyLevels = CompetencyLevel.list()
+    competencyLevels.each { l->
+      charts.y << l.name
     }
 
     def questionCategories = Term.findAllByVocabularyAndParent(vocabularyQuestionCategory, null)
@@ -76,20 +83,23 @@ class SurveyService {
 
     charts.category.zum.each { key, value ->
       def avgValue = charts.category.kount[key] > 0 ? Math.floor( value / charts.category.kount[key] ) : 0
-      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
-      charts.category.data1 << valueLevel.title
+      // def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
+      def valueLevel = CompetencyLevel.findByValue(avgValue)
+      charts.category.data1 << valueLevel.name
     }
 
     charts.competency.zum.each { key, value ->
       def avgValue = charts.competency.kount[key] > 0 ? Math.floor( value / charts.competency.kount[key] ) : 0
-      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
-      charts.competency.data1 << valueLevel.title
+      // def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
+      def valueLevel = CompetencyLevel.findByValue(avgValue)
+      charts.competency.data1 << valueLevel.name
     }
 
     charts.indicator.zum.each { key, value->
       def avgValue = surveysAssigned.size() > 0 ? Math.floor( value / surveysAssigned.size() ) : 0
-      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
-      charts.indicator.data1 << valueLevel.title
+      // def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
+      def valueLevel = CompetencyLevel.findByValue(avgValue)
+      charts.indicator.data1 << valueLevel.name
     }
 
     def chart1 = [x: charts.category.x,   data1: charts.category.data1,   data2: charts.category.data1,   xLabel: charts.category.xLabel]
@@ -126,9 +136,14 @@ class SurveyService {
       indicator:  [ x: [], data1: [], data2: [], xLabel: [], zum: [:], kount: [:] ],
     ]
 
-    def surveyAnswers = SurveyAnswer.findAllBySurvey(survey)
+/*    def surveyAnswers = SurveyAnswer.findAllBySurvey(survey)
     surveyAnswers.each { a->
       charts.y << a.title
+    }*/
+
+    def competencyLevels = CompetencyLevel.list()
+    competencyLevels.each { l->
+      charts.y << l.name
     }
 
     def questionCategories = Term.findAllByVocabularyAndParent(vocabularyQuestionCategory, null)
@@ -139,7 +154,7 @@ class SurveyService {
       charts.category.kount[category.code] = 0
       def competencies = Term.findAllByParent(category)
       competencies.each { competency->
-        charts.competency.x << "${competency.name}"
+        charts.competency.x << "C${competency.weight}"
         charts.competency.xLabel << "${competency.name}"
         charts.competency.zum[competency.code] = 0
         charts.competency.kount[competency.code] = 0
@@ -148,7 +163,7 @@ class SurveyService {
 
     def surveyQuestions = SurveyQuestion.findAllBySurvey(survey)
     surveyQuestions.each { q->
-      charts.indicator.x << "C${q.weight}"
+      charts.indicator.x << "I${q.weight}"
       charts.indicator.xLabel << "${q.title}"
       charts.indicator.zum[q.code] = 0
     }
@@ -171,26 +186,26 @@ class SurveyService {
     }
 
     charts.category.zum.each { key, value ->
-      def avgValue = charts.category.kount[key] > 0 ? Math.floor( value / charts.category.kount[key] ) : 0
-      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
-      charts.category.data1 << valueLevel.title
+      def avgValue = charts.category.kount[key] > 0 ? ( value / charts.category.kount[key] ) : 0
+      charts.category.data1 << avgValue
+      charts.category.data2 << avgValue * 0.75
     }
 
     charts.competency.zum.each { key, value ->
-      def avgValue = charts.competency.kount[key] > 0 ? Math.floor( value / charts.competency.kount[key] ) : 0
-      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
-      charts.competency.data1 << valueLevel.title
+      def avgValue = charts.competency.kount[key] > 0 ? ( value / charts.competency.kount[key] ) : 0
+      charts.competency.data1 << avgValue
+      charts.competency.data2 << avgValue * 0.75
     }
 
     charts.indicator.zum.each { key, value->
-      def avgValue = surveysAssigned.size() > 0 ? Math.floor( value / surveysAssigned.size() ) : 0
-      def valueLevel = SurveyAnswer.findByValue(avgValue.toLong())
-      charts.indicator.data1 << valueLevel.title
+      def avgValue = surveysAssigned.size() > 0 ? ( value / surveysAssigned.size() ) : 0
+      charts.indicator.data1 << avgValue
+      charts.indicator.data2 << avgValue * 0.75
     }
 
-    def chart1 = [x: charts.category.x,   data1: charts.category.data1,   data2: charts.category.data1,   xLabel: charts.category.xLabel]
-    def chart2 = [x: charts.competency.x, data1: charts.competency.data1, data2: charts.competency.data1, xLabel: charts.competency.xLabel]
-    def chart3 = [x: charts.indicator.x,  data1: charts.indicator.data1,  data2: charts.indicator.data1,  xLabel: charts.indicator.xLabel]
+    def chart1 = [x: charts.category.x,   data1: charts.category.data1,   data2: charts.category.data2,   xLabel: charts.category.xLabel]
+    def chart2 = [x: charts.competency.x, data1: charts.competency.data1, data2: charts.competency.data2, xLabel: charts.competency.xLabel]
+    def chart3 = [x: charts.indicator.x,  data1: charts.indicator.data1,  data2: charts.indicator.data2,  xLabel: charts.indicator.xLabel]
 
     def labels = [
       data1: 'Self evaluation',

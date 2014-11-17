@@ -30,9 +30,9 @@
 <body>
 <!--   <g:render template="/_menu/navbar"/>     -->                      
 
-  <g:render template="/layouts/content"/>
+  <g:render template="/layouts/contentPrint"/>
 
-  <g:render template="/layouts/footer"/>                            
+%{--   <g:render template="/layouts/footer"/>     --}%                        
 </body>
 
 </html>

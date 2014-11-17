@@ -42,7 +42,7 @@ class JsonCompetencySummaryController {
 
     def json = [ y: dataChart.y, labels: dataChart.labels, category: jsonCategory, competency: jsonCompetency, indicator: jsonIndicator ]
 
-println json as JSON
+//println json as JSON
 
     render json as JSON
     

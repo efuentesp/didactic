@@ -5,6 +5,7 @@ import grails.plugin.core.taxonomy.Term
 
 import grails.plugin.hr.party.Employee
 
+import grails.plugin.hr.competency.CompetencyModel
 import grails.plugin.hr.competency.CompetencyLevel
 
 import grails.plugin.survey.Survey
@@ -43,7 +44,13 @@ class SurveyService {
       charts.y << a.title
     }*/
 
-    def competencyLevels = CompetencyLevel.list()
+    def competencyModel = CompetencyModel.findAllByCode(NECESIDADES_CAPACITACION)
+    if (!competencyModel) {
+      log.error "Unable to retrive Competency Model: 'NECESIDADES_CAPACITACION'."
+      throw new RuntimeException("Unable to retrive Competency Model: 'NECESIDADES_CAPACITACION'.")
+    }
+
+    def competencyLevels = CompetencyLevel.findByModel(competencyModel)
     competencyLevels.each { l->
       charts.y << l.name
     }
@@ -141,7 +148,13 @@ class SurveyService {
       charts.y << a.title
     }*/
 
-    def competencyLevels = CompetencyLevel.list()
+    def competencyModel = CompetencyModel.findByCode(NECESIDADES_CAPACITACION)
+    if (!competencyModel) {
+      log.error "Unable to retrive Competency Model: 'NECESIDADES_CAPACITACION'."
+      throw new RuntimeException("Unable to retrive Competency Model: 'NECESIDADES_CAPACITACION'.")
+    }
+
+    def competencyLevels = CompetencyLevel.findAllByModel(competencyModel)
     competencyLevels.each { l->
       charts.y << l.name
     }
@@ -206,10 +219,11 @@ class SurveyService {
     def chart1 = [x: charts.category.x,   data1: charts.category.data1,   data2: charts.category.data2,   xLabel: charts.category.xLabel]
     def chart2 = [x: charts.competency.x, data1: charts.competency.data1, data2: charts.competency.data2, xLabel: charts.competency.xLabel]
     def chart3 = [x: charts.indicator.x,  data1: charts.indicator.data1,  data2: charts.indicator.data2,  xLabel: charts.indicator.xLabel]
-
+println chart3.data1
+println chart3.data2
     def labels = [
-      data1: 'Self evaluation',
-      data2: 'Third-party evaluation'
+      data1: 'Auto-evaluación',
+      data2: 'Evaluación de tercero'
     ]
 
     return [y: charts.y, labels: labels, categoryChart: chart1, competencyChart: chart2, indicatorChart: chart3]

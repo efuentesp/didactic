@@ -22,21 +22,43 @@ console.log(json.indicator);
         enabled: true,
         customizeText: function () { return this.point.tag; }
       },
-      title: '',
+      // title: 'Competency Indicators Chart',
       legend: {
         verticalAlignment: 'bottom',
         horizontalAlignment: 'center'
       },
       series: [
-        {valueField: 'data1', name: json.labels.data1},
-        {valueField: 'data2', type: 'line', name: json.labels.data2}
+        {
+          valueField: 'data1',
+          name: json.labels.data1,
+          label: {
+            visible: false,
+            verticalOffset: 0,
+            format: 'fixedPoint',
+            precision: 2
+          }
+        },
+        {
+          valueField: 'data2',
+          type: 'stackedbar',
+          name: json.labels.data2,
+          label: {
+            visible: false,
+            verticalOffset: 50,
+            format: 'fixedPoint',
+            precision: 2
+          }
+        }
       ],
       valueAxis: {
         title: {
-          text: 'Level'
+          text: 'Nivel'
         },
         min: 0,
         max: 4
+      },
+      animation: {
+        enabled: false
       }
     });
  
@@ -45,24 +67,30 @@ console.log(json.indicator);
       dataSource: dataCompetencies,
       commonSeriesSettings: {
         type: 'bar',
-        argumentField: 'x'
+        argumentField: 'x',
+        label: {
+          visible: true
+        }
       },
       tooltip: { enabled: true },
-      title: '',
+      // title: 'Competency Chart',
       legend: {
         verticalAlignment: 'bottom',
         horizontalAlignment: 'center'
       },
       series: [
-        {valueField: 'data1', name: json.labels.data1},
-        {valueField: 'data2', type: 'line', name: json.labels.data2}
+        {valueField: 'data1', name: json.labels.data1, label: {format: 'fixedPoint', precision: 2, font: {size: 10}}},
+        {valueField: 'data2', type: 'stackedbar', name: json.labels.data2, label: {verticalOffset: 0, format: 'fixedPoint', precision: 2, font: {size: 10}}}
       ],
       valueAxis: {
         title: {
-          text: 'Level'
+          text: 'Nivel'
         },
         min: 0,
-        max: 4
+        max: 3.5
+      },
+      animation: {
+        enabled: false
       }
     });
 
@@ -71,26 +99,32 @@ console.log(json.indicator);
       dataSource: dataCategories,
       commonSeriesSettings: {
         type: 'bar',
-        argumentField: 'x'
+        argumentField: 'x',
+        label: {
+          visible: true
+        }
       },
       tooltip: {
         enabled: true
       },
-      title: '',
+      // title: 'Category Chart',
       legend: {
         verticalAlignment: 'bottom',
         horizontalAlignment: 'center'
       },
       series: [
-        {valueField: 'data1', name: json.labels.data1},
-        {valueField: 'data2', type: 'line', name: json.labels.data2}
+        { valueField: 'data1', name: json.labels.data1, label: {verticalOffset: 0, format: 'fixedPoint', precision: 2} },
+        { valueField: 'data2', type: 'stackedbar', name: json.labels.data2, label: {verticalOffset: 0, format: 'fixedPoint', precision: 2} }
       ],
       valueAxis: {
         title: {
-          text: 'Level'
+          text: 'Nivel'
         },
         min: 0,
-        max: 4
+        max: 3.4
+      },
+      animation: {
+        enabled: false
       }
     });
 

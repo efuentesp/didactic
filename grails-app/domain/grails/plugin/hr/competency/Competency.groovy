@@ -7,6 +7,7 @@ class Competency implements Serializable {
   String code
   String name
   String description
+  Integer weight
 
   Term category
 
@@ -18,11 +19,16 @@ class Competency implements Serializable {
 
   static hasMany = [indicators: CompetencyIndicator]
 
+  static mapping = {
+    sort weight: 'asc'
+  }
+
   static constrains = {
     model (nullable: false)
     code (nullable: false)
     name (nullable: false)
     description (nullable: true)
+    weight (nullable: false)
     category (nullable: false)
     indicators (nullable: true)
     restricted (nullable: false)

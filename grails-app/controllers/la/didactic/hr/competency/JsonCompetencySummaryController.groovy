@@ -9,7 +9,7 @@ class JsonCompetencySummaryController {
   def surveyService
 
   def index() {
-    //println "JsonCompetencySummaryController:index = ${params}"
+    println "JsonCompetencySummaryController:index = ${params}"
 
     def jsonCategory = []
     def jsonCompetency = []
@@ -19,10 +19,10 @@ class JsonCompetencySummaryController {
 
     def dataChart
     if (employeeCode) {
-        dataChart = surveyService.chartCompetencySurveyDetailResults([employeeCode: employeeCode])
-      } else {
-        dataChart = surveyService.chartCompetencySurveyResults()
-      }
+      dataChart = surveyService.chartCompetencySurveyDetailResults([employeeCode: employeeCode])
+    } else {
+      dataChart = surveyService.chartCompetencySurveyResults(params: [municipality: params?.municipality])
+    }
 //println dataChart
 
     dataChart.categoryChart.x.eachWithIndex { e, i ->

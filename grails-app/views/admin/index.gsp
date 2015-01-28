@@ -8,17 +8,20 @@
     <title>Welcome to Didactic.la</title>
 
     <asset:stylesheet src="dashboard.css"/>
-%{--     <asset:stylesheet src="c3.min.css"/> --}%
   </head>
 
   <body>
+
+    <g:hiddenField id="municipalityId" name="municipalityId" value="${municipality?.id}" />
 
     <!-- Page Heading -->
     <div class="row">
 
       <div class="col-lg-12">
         <h1 class="page-header">
-          Dashboard <small>Statistics Overview</small>
+        <g:set var="pageTitle" value="${municipality ? municipality.name : 'Dashboard'}" />
+        <g:set var="pageSubitle" value="${municipality ? municipality.parent.name : 'Statistics Overview'}" />
+          ${pageTitle} <small>${pageSubitle}</small>
         </h1>
         <ol class="breadcrumb">
           <li class="active">
@@ -148,14 +151,73 @@
     <!-- /.row -->
 
     <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-filter fa-fw"></i> Filtros</h3>
+          </div>
+          <div class="panel-body">
+            <form class="form-inline">
+              <div class="row">
+                <div class="form-group">
+                  <label for="state">Estado:</label>
+                  <select name="state" id="state" class="form-control">
+                    <option value="">-- Seleccionar --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="subdirection">Subdirección:</label>
+                  <select name="subdirection" id="subdirection" class="form-control">
+                    <option value="">-- Seleccionar --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="municipality">Municipio:</label>
+                  <select name="municipality" id="municipality" class="form-control">
+                    <option value="">-- Seleccionar --</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <label for="educationalService">Tipo de Servicio:</label>
+                  <select name="educationalService" id="educationalService" class="form-control">
+                    <option value="">-- Seleccionar --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="educationalControl">Pública/Privada:</label>
+                  <select name="educationalControl" id="educationalControl" class="form-control">
+                    <option value="">-- Seleccionar --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="educationalArea">Urbano/Rural:</label>
+                  <select name="educationalArea" id="educationalArea" class="form-control">
+                    <option value="">-- Seleccionar --</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" class="btn btn-success">
+                  <i class="fa fa-search"></i> Buscar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
 
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Competency Indicators Chart</h3>
+%{--             <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Competency Indicators Chart</h3> --}%
+            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Gráfica de Indicadores de Competencias</h3>
           </div>
           <div class="panel-body">
-%{--             <div id="c3-line-chart"></div> --}%
             <div id="dev-indicators-chart"></div>
           </div>
         </div>
@@ -164,12 +226,14 @@
     </div>
     <!-- /.row -->
 
+
     <div class="row">
 
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Competency Chart</h3>
+%{--             <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Competency Chart</h3> --}%
+            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Gráfica de Competencias</h3>
           </div>
           <div class="panel-body">
             <div id="dev-competency-chart"></div>
@@ -185,7 +249,8 @@
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Category Chart</h3>
+%{--             <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Category Chart</h3> --}%
+            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Gráfica de Categorias</h3>
           </div>
           <div class="panel-body">
             <div id="dev-category-chart"></div>
@@ -337,9 +402,6 @@
     </div>
     <!-- /.row -->
 
-%{--     <asset:javascript src="vendor/d3/d3.js"/>
-    <asset:javascript src="vendor/c3/c3.js"/>
-    <asset:javascript src="dashboard/admin/c3LineChart.js"/> --}%
     <asset:javascript src="vendor/globalize/globalize.js"/>
     <asset:javascript src="vendor/devextreme/dx.chartjs.js"/>
     <asset:javascript src="dashboard/admin/devLineChart.js"/>

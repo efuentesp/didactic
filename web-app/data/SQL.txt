@@ -1,0 +1,270 @@
+INSERT INTO competency (version, category_id, code, date_created, description, last_updated, model_id, name, restricted)
+SELECT 0, Categorias_CategoriaID,ComptenciaID+33,CURDATE(),Competencia,CURDATE(),1,Competencia,false
+FROM test.Competencias
+
+INSERT INTO competency_indicator (version, code, competency_id, date_created, description, last_updated, name, restricted)
+SELECT 0,EstandarID,Competencias_ComptenciaID,CURDATE(),Estandar,CURDATE(),Estandar,false
+FROM test.Estandares
+
+INSERT INTO geographic_boundary (version,abbreviation,code,name,parent_id,type_id)
+SELECT 0,Entidad,ClaveSEPOMEX,Entidad,1,2
+FROM test.EntidadesFederativas
+
+INSERT INTO geographic_boundary (version,abbreviation,code,name,parent_id,type_id)
+SELECT 0,Municipio,ClaveSEPOMEX,Municipio,EntidadesFederativas_EntidadID+1,3
+FROM test.Municipios
+
+
+INSERT INTO term (version, code, date_created, description, last_updated, name, parent_id, restricted, vocabulary_id, weight)
+SELECT 0, ComptenciaID, CURDATE(), ComoApareceEnEncuesta, CURDATE(), Competencia, Categorias_CategoriaID+38, false, 10, ComptenciaID
+FROM test.Competencias
+
+
+INSERT INTO survey_question (version, category_id, code, date_created, description, instructions, last_updated, optional_question, restricted, title, weight)
+SELECT 0,Competencias_ComptenciaID+43,EstandarID,CURDATE(),Estandar,'.',CURDATE(),false,false,ComoApareceEnEncuesta,EstandarID
+FROM test.Estandares
+
+INSERT INTO term (version, code, date_created, description, last_updated, name, parent_id, restricted, vocabulary_id, weight)
+SELECT 0, Servicio, CURDATE(), Servicio, CURDATE(), Servicio, null, false, 6, 10
+FROM test.CentrosTrabajoSEP GROUP BY Servicio ORDER BY Servicio
+
+
+
+
+
+
+INSERT INTO party (version, date_created, last_updated, restricted, class, name, type_id)
+SELECT 0, CURDATE(), CURDATE(), false, 'grails.plugin.core.party.Organization', CentroEducativo, 8
+FROM test.CentrosTrabajoSEP
+
+
+
+
+
+
+SELECT 0, CURDATE(), CURDATE(), false, 'grails.plugin.core.party.Organization', CCT, A.id, C.id, S.id, CentroEducativo, Municipios_MunicipioID+64
+FROM test.CentrosTrabajoSEP AS CCT
+LEFT JOIN `didactic-dev`.term AS A ON A.code=CCT.Ambito
+LEFT JOIN `didactic-dev`.term AS C ON C.code=CCT.Control
+LEFT JOIN `didactic-dev`.term AS S ON S.code=CCT.Servicio
+
+64
+INSERT INTO YCentrosTrabajoSEP (CCT, Localidad, Ambito,  Control, Servicio,  CentroEducativo, Domicilio, Municipios_MunicipioID)
+SELECT CCT, Localidad, Ambito,  Control, Servicio,  CentroEducativo, Domicilio, Municipios_MunicipioID+64
+FROM XCentrosTrabajoSEP
+
+CREATE TABLE IF NOT EXISTS `YCentrosTrabajoSEP` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `version` bigint(20) NOT NULL,
+  `CCT` varchar(10) NOT NULL,
+  `Localidad` varchar(150) NOT NULL,
+  `Ambito` varchar(6) DEFAULT NULL,
+  `Control` varchar(7) DEFAULT NULL,
+  `Servicio` varchar(100) DEFAULT NULL,
+  `CentroEducativo` varchar(255) DEFAULT NULL,
+  `Domicilio` varchar(255) DEFAULT NULL,
+  `Municipios_MunicipioID` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `competency` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `version` bigint(20) NOT NULL,
+  `category_id` bigint(20) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `last_updated` datetime NOT NULL,
+  `model_id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `restricted` bit(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_d4f47w77a6w2nymu1d4inej7b` (`category_id`),
+  KEY `FK_fpg1a7ht623gxgxbic8xc27oa` (`model_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+
+
+SELECT * FROM YCentrosTrabajoSEP AS S
+LEFT JOIN geographic_boundary AS G ON G.id=S.Municipios_MunicipioID
+
+DELETE FROM `party_relationship`;
+
+DELETE FROM `party_role`
+WHERE type_id = 30;
+
+DELETE FROM `party_role`
+where type_id = 30131;
+
+DELETE FROM `party_postal_address`;
+
+DELETE FROM `postal_address`;
+
+DELETE FROM `party`
+where type_id=8;
+
+
+SELECT T.code AS 'CCT', AREA.name, CONTROL.name, SERVICE.name, S.name AS 'Escuela', F.code AS 'Clave Servidor Público', P.first_name AS 'Profesor' FROM party_relationship AS PR
+LEFT JOIN party_role AS F ON F.id = PR.from_party_role_id
+LEFT JOIN party_role AS T ON T.id = PR.to_party_role_id
+LEFT JOIN party AS S ON S.id = T.party_id
+LEFT JOIN party AS P ON P.id = F.party_id
+LEFT JOIN term AS AREA ON AREA.id = T.area_id
+LEFT JOIN term AS CONTROL ON CONTROL.id = T.control_id
+LEFT JOIN term AS SERVICE ON SERVICE.id = T.service_id
+WHERE  PR.type_id = 16
+ORDER BY T.code
+
+SELECT * FROM ProfesoresCCT AS P
+LEFT JOIN CentrosTrabajoSEP AS CCT ON CCT.CCT = P.CentrosTrabajoSEP_CCT
+
+
+
+
+SELECT *
+
+SELECT STATE.name, MUNICIPALITY.name AS Municipio, QUESTION_CATEGORY.name AS Categoria, QUESTION.title AS Competencia, (AVG(ANSWER.weight)/10) AS Escala
+FROM survey_assigned SA
+LEFT JOIN survey_assigned_response SAR ON SAR.survey_assigned_id = SA.id
+LEFT JOIN survey SURVEY ON SURVEY.id = SA.survey_id
+LEFT JOIN survey_question QUESTION ON QUESTION.id = SAR.question_id
+LEFT JOIN term QUESTION_CATEGORY ON QUESTION_CATEGORY.id = QUESTION.category_id
+LEFT JOIN survey_question_answer ANSWER ON ANSWER.id = SAR.answer_id
+LEFT JOIN party_role INTERVIEWEE ON INTERVIEWEE.id = SA.interviewee_id
+LEFT JOIN party_relationship EMPLOYMENT ON EMPLOYMENT.from_party_role_id = INTERVIEWEE.party_id
+LEFT JOIN party_role SCHOOL ON SCHOOL.id = EMPLOYMENT.to_party_role_id
+LEFT JOIN term AREA ON AREA.id = SCHOOL.area_id
+LEFT JOIN term CONTROL ON CONTROL.id = SCHOOL.control_id
+LEFT JOIN term SERVICE ON SERVICE.id = SCHOOL.service_id
+LEFT JOIN party_postal_address PARTY_ADDRESS ON PARTY_ADDRESS.party_id = SCHOOL.party_id
+LEFT JOIN postal_address ADDRESS ON ADDRESS.id = PARTY_ADDRESS.postal_address_id
+LEFT JOIN geographic_boundary MUNICIPALITY ON MUNICIPALITY.id = ADDRESS.geographic_boundary_id
+LEFT JOIN geographic_boundary STATE ON STATE.id = MUNICIPALITY.parent_id
+WHERE STATE.id is not null
+GROUP BY STATE.id, MUNICIPALITY.id, SURVEY.id, QUESTION_CATEGORY.weight, QUESTION.weight
+ORDER BY STATE.id, MUNICIPALITY.id, SURVEY.id, QUESTION_CATEGORY.weight, QUESTION.weight
+
+
+SELECT STATE.name, QUESTION_CATEGORY.name AS Categoria, QUESTION.title AS Competencia, FLOOR(AVG(ANSWER.weight)/10) AS Escala
+FROM survey_assigned SA
+LEFT JOIN survey_assigned_response SAR ON SAR.survey_assigned_id = SA.id
+LEFT JOIN survey SURVEY ON SURVEY.id = SA.survey_id
+LEFT JOIN survey_question QUESTION ON QUESTION.id = SAR.question_id
+LEFT JOIN term QUESTION_CATEGORY ON QUESTION_CATEGORY.id = QUESTION.category_id
+LEFT JOIN survey_question_answer ANSWER ON ANSWER.id = SAR.answer_id
+LEFT JOIN party_role INTERVIEWEE ON INTERVIEWEE.id = SA.interviewee_id
+LEFT JOIN party_relationship EMPLOYMENT ON EMPLOYMENT.from_party_role_id = INTERVIEWEE.party_id
+LEFT JOIN party_role SCHOOL ON SCHOOL.id = EMPLOYMENT.to_party_role_id
+LEFT JOIN term AREA ON AREA.id = SCHOOL.area_id
+LEFT JOIN term CONTROL ON CONTROL.id = SCHOOL.control_id
+LEFT JOIN term SERVICE ON SERVICE.id = SCHOOL.service_id
+LEFT JOIN party_postal_address PARTY_ADDRESS ON PARTY_ADDRESS.party_id = SCHOOL.party_id
+LEFT JOIN postal_address ADDRESS ON ADDRESS.id = PARTY_ADDRESS.postal_address_id
+LEFT JOIN geographic_boundary MUNICIPALITY ON MUNICIPALITY.id = ADDRESS.geographic_boundary_id
+LEFT JOIN geographic_boundary STATE ON STATE.id = MUNICIPALITY.parent_id
+WHERE STATE.id is not null
+GROUP BY STATE.id, SURVEY.id, QUESTION_CATEGORY.weight, QUESTION.weight
+ORDER BY STATE.id, SURVEY.id, QUESTION_CATEGORY.weight, QUESTION.weight
+
+
+SELECT *
+FROM survey_assigned SA
+LEFT JOIN party_role INTERVIEWEE ON INTERVIEWEE.id = SA.interviewee_id
+LEFT JOIN party_relationship EMPLOYMENT ON EMPLOYMENT.from_party_role_id = INTERVIEWEE.party_id
+LEFT JOIN party_role SCHOOL ON SCHOOL.id = EMPLOYMENT.to_party_role_id
+LEFT JOIN party_postal_address PARTY_ADDRESS ON PARTY_ADDRESS.party_id = SCHOOL.party_id
+LEFT JOIN postal_address ADDRESS ON ADDRESS.id = PARTY_ADDRESS.postal_address_id
+LEFT JOIN geographic_boundary MUNICIPALITY ON MUNICIPALITY.id = ADDRESS.geographic_boundary_id
+LEFT JOIN geographic_boundary STATE ON STATE.id = MUNICIPALITY.parent_id
+WHERE STATE.id is null
+
+
+SELECT STATE.name, MUNICIPALITY.name AS Municipio, MUNICIPALITY.id, INTERVIEWEE.code
+FROM survey_assigned SA
+LEFT JOIN party_role INTERVIEWEE ON INTERVIEWEE.id = SA.interviewee_id
+LEFT JOIN party_relationship EMPLOYMENT ON EMPLOYMENT.from_party_role_id = INTERVIEWEE.party_id
+LEFT JOIN party_role SCHOOL ON SCHOOL.id = EMPLOYMENT.to_party_role_id
+LEFT JOIN term AREA ON AREA.id = SCHOOL.area_id
+LEFT JOIN term CONTROL ON CONTROL.id = SCHOOL.control_id
+LEFT JOIN term SERVICE ON SERVICE.id = SCHOOL.service_id
+LEFT JOIN party_postal_address PARTY_ADDRESS ON PARTY_ADDRESS.party_id = SCHOOL.party_id
+LEFT JOIN postal_address ADDRESS ON ADDRESS.id = PARTY_ADDRESS.postal_address_id
+LEFT JOIN geographic_boundary MUNICIPALITY ON MUNICIPALITY.id = ADDRESS.geographic_boundary_id
+LEFT JOIN geographic_boundary STATE ON STATE.id = MUNICIPALITY.parent_id
+WHERE STATE.id is not null
+ORDER BY MUNICIPALITY.id
+
+
+
+
+
+
+
+
+
+
+
+CREATE VIEW view_survey_results_by_municipality AS
+SELECT UUID() AS id, 0 AS version, STATE.id AS state_id, STATE.name AS state_name, MUNICIPALITY.id AS municipality_id, MUNICIPALITY.name AS municipality_name, QUESTION_CATEGORY.id AS question_category_id, QUESTION_CATEGORY.code AS question_category_code, QUESTION_CATEGORY.name AS question_category_name, QUESTION_COMPETENCY.id AS question_competency_id, QUESTION_COMPETENCY.code AS question_competency_code, QUESTION_COMPETENCY.name AS question_competency_name, QUESTION_INDICATOR.id AS question_indicator_id, QUESTION_INDICATOR.code AS question_indicator_code, QUESTION_INDICATOR.title AS question_indicator_title, (AVG(ANSWER.weight)/10) AS level
+FROM survey_assigned SA
+LEFT JOIN survey_assigned_response SAR ON SAR.survey_assigned_id = SA.id
+LEFT JOIN survey SURVEY ON SURVEY.id = SA.survey_id
+LEFT JOIN survey_question QUESTION_INDICATOR ON QUESTION_INDICATOR.id = SAR.question_id
+LEFT JOIN term QUESTION_COMPETENCY ON QUESTION_COMPETENCY.id = QUESTION_INDICATOR.category_id
+LEFT JOIN term QUESTION_CATEGORY ON QUESTION_CATEGORY.id = QUESTION_COMPETENCY.parent_id
+LEFT JOIN survey_question_answer ANSWER ON ANSWER.id = SAR.answer_id
+LEFT JOIN party_role INTERVIEWEE ON INTERVIEWEE.id = SA.interviewee_id
+LEFT JOIN party_relationship EMPLOYMENT ON EMPLOYMENT.from_party_role_id = INTERVIEWEE.party_id
+LEFT JOIN party_role SCHOOL ON SCHOOL.id = EMPLOYMENT.to_party_role_id
+LEFT JOIN term AREA ON AREA.id = SCHOOL.area_id
+LEFT JOIN term CONTROL ON CONTROL.id = SCHOOL.control_id
+LEFT JOIN term SERVICE ON SERVICE.id = SCHOOL.service_id
+LEFT JOIN party_postal_address PARTY_ADDRESS ON PARTY_ADDRESS.party_id = SCHOOL.party_id
+LEFT JOIN postal_address ADDRESS ON ADDRESS.id = PARTY_ADDRESS.postal_address_id
+LEFT JOIN geographic_boundary MUNICIPALITY ON MUNICIPALITY.id = ADDRESS.geographic_boundary_id
+LEFT JOIN geographic_boundary STATE ON STATE.id = MUNICIPALITY.parent_id
+WHERE STATE.id is not null
+GROUP BY STATE.id, MUNICIPALITY.id, SURVEY.id, QUESTION_COMPETENCY.weight, QUESTION_INDICATOR.weight
+ORDER BY STATE.id, MUNICIPALITY.id, SURVEY.id, QUESTION_COMPETENCY.weight, QUESTION_INDICATOR.weight
+
+
+
+
+
+CREATE VIEW view_survey_results AS
+SELECT UUID() AS id, 0 AS version,
+STATE.id AS state_id, STATE.name AS state_name,
+SUBDIRECTION.id AS subdirection_id, SUBDIRECTION.name AS subdirection_name,
+MUNICIPALITY.id AS municipality_id, MUNICIPALITY.name AS municipality_name,
+SERVICE.id AS service_id, SERVICE.code AS service_code, SERVICE.name AS service_name,
+CONTROL.id AS control_id, CONTROL.code AS control_code, CONTROL.name AS control_name,
+AREA.id AS area_id, AREA.code AS area_code, AREA.name AS area_name,
+QUESTION_CATEGORY.id AS question_category_id, QUESTION_CATEGORY.code AS question_category_code, QUESTION_CATEGORY.name AS question_category_name,
+QUESTION_COMPETENCY.id AS question_competency_id, QUESTION_COMPETENCY.code AS question_competency_code, QUESTION_COMPETENCY.name AS question_competency_name,
+QUESTION_INDICATOR.id AS question_indicator_id, QUESTION_INDICATOR.code AS question_indicator_code, QUESTION_INDICATOR.title AS question_indicator_title,
+(AVG(ANSWER.weight)/10) AS level
+FROM survey_assigned SA
+LEFT JOIN survey_assigned_response SAR ON SAR.survey_assigned_id = SA.id
+LEFT JOIN survey SURVEY ON SURVEY.id = SA.survey_id
+LEFT JOIN survey_question QUESTION_INDICATOR ON QUESTION_INDICATOR.id = SAR.question_id
+LEFT JOIN term QUESTION_COMPETENCY ON QUESTION_COMPETENCY.id = QUESTION_INDICATOR.category_id
+LEFT JOIN term QUESTION_CATEGORY ON QUESTION_CATEGORY.id = QUESTION_COMPETENCY.parent_id
+LEFT JOIN survey_question_answer ANSWER ON ANSWER.id = SAR.answer_id
+LEFT JOIN party_role INTERVIEWEE ON INTERVIEWEE.id = SA.interviewee_id
+LEFT JOIN party_relationship EMPLOYMENT ON EMPLOYMENT.from_party_role_id = INTERVIEWEE.party_id
+LEFT JOIN party_role SCHOOL ON SCHOOL.id = EMPLOYMENT.to_party_role_id
+LEFT JOIN term AREA ON AREA.id = SCHOOL.area_id
+LEFT JOIN term CONTROL ON CONTROL.id = SCHOOL.control_id
+LEFT JOIN term SERVICE ON SERVICE.id = SCHOOL.service_id
+LEFT JOIN party_postal_address PARTY_ADDRESS ON PARTY_ADDRESS.party_id = SCHOOL.party_id
+LEFT JOIN postal_address ADDRESS ON ADDRESS.id = PARTY_ADDRESS.postal_address_id
+LEFT JOIN geographic_boundary MUNICIPALITY ON MUNICIPALITY.id = ADDRESS.geographic_boundary_id
+LEFT JOIN geographic_boundary SUBDIRECTION ON SUBDIRECTION.id = MUNICIPALITY.parent_id
+LEFT JOIN geographic_boundary STATE ON STATE.id = SUBDIRECTION.parent_id
+WHERE SUBDIRECTION.id is not null and STATE.id is not null
+GROUP BY STATE.id, SUBDIRECTION.id, MUNICIPALITY.id, SERVICE.id, CONTROL.id, AREA.id, SURVEY.id, QUESTION_COMPETENCY.weight, QUESTION_INDICATOR.weight
+ORDER BY STATE.id, SUBDIRECTION.id, MUNICIPALITY.id, SERVICE.id, CONTROL.id, AREA.id, SURVEY.id, QUESTION_COMPETENCY.weight, QUESTION_INDICATOR.weight
+
+
+
+
+scp target/didactic.war root@104.130.3.163:"/home"

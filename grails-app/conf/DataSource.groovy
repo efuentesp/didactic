@@ -53,7 +53,7 @@ environments {
      production {
         dataSource {
            dbCreate = "update"
-           url = "jdbc:mysql://127.0.0.1:3306/didactic-prod?useUnicode=yes&characterEncoding=UTF-8"
+           url = "jdbc:mysql://104.130.3.163:3306/didactic-prod?useUnicode=yes&characterEncoding=UTF-8"
            username = "admin"
            password = "toor"
            

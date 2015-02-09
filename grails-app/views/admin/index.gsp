@@ -33,7 +33,7 @@
     </div>
     <!-- /.row -->
 
-    <div class="row">
+%{--     <div class="row">
 
       <g:set var="educationalServiceProviderTerm" value="${Term.findByCode('EDUCATIONAL_SERVICE_PROVIDER')}" />
       <g:set var="educationalServiceProviders" value="${Organization.findAllByType(educationalServiceProviderTerm)}" />
@@ -147,7 +147,7 @@
         </div>
       </div>
 
-    </div>
+    </div> --}%
     <!-- /.row -->
 
     <div class="row">
@@ -162,19 +162,19 @@
                 <div class="form-group">
                   <label for="state">Estado:</label>
                   <select name="state" id="state" class="form-control">
-                    <option value="">-- Seleccionar --</option>
+                    <option value="0">-- Todos --</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="subdirection">Subdirección:</label>
                   <select name="subdirection" id="subdirection" class="form-control">
-                    <option value="">-- Seleccionar --</option>
+                    <option value="0">-- Todos --</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="municipality">Municipio:</label>
                   <select name="municipality" id="municipality" class="form-control">
-                    <option value="">-- Seleccionar --</option>
+                    <option value="0">-- Todos --</option>
                   </select>
                 </div>
               </div>
@@ -182,24 +182,24 @@
                 <div class="form-group">
                   <label for="educationalService">Tipo de Servicio:</label>
                   <select name="educationalService" id="educationalService" class="form-control">
-                    <option value="">-- Seleccionar --</option>
+                    <option value="0">-- Todos --</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="educationalControl">Pública/Privada:</label>
                   <select name="educationalControl" id="educationalControl" class="form-control">
-                    <option value="">-- Seleccionar --</option>
+                    <option value="0">-- Todos --</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="educationalArea">Urbano/Rural:</label>
                   <select name="educationalArea" id="educationalArea" class="form-control">
-                    <option value="">-- Seleccionar --</option>
+                    <option value="0">-- Todos --</option>
                   </select>
                 </div>
               </div>
               <div class="row">
-                <button type="button" class="btn btn-success">
+                <button id="btnSearch" type="button" class="btn btn-success">
                   <i class="fa fa-search"></i> Buscar
                 </button>
               </div>

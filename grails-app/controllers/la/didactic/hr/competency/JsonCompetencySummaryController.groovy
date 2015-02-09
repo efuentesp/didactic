@@ -21,9 +21,9 @@ class JsonCompetencySummaryController {
     if (employeeCode) {
       dataChart = surveyService.chartCompetencySurveyDetailResults([employeeCode: employeeCode])
     } else {
-      dataChart = surveyService.chartCompetencySurveyResults(params: [municipality: params?.municipality])
+      dataChart = surveyService.chartCompetencySurveyResults(params: params)
     }
-//println dataChart
+    //println dataChart
 
     dataChart.categoryChart.x.eachWithIndex { e, i ->
       def element = [ x: dataChart.categoryChart.x[i], data1: dataChart.categoryChart.data1[i], data2: dataChart.categoryChart.data2[i], xLabel: dataChart.categoryChart.xLabel[i] ]
@@ -42,7 +42,7 @@ class JsonCompetencySummaryController {
 
     def json = [ y: dataChart.y, labels: dataChart.labels, category: jsonCategory, competency: jsonCompetency, indicator: jsonIndicator ]
 
-//println json as JSON
+    //println json as JSON
 
     render json as JSON
     

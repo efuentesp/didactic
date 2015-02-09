@@ -15,6 +15,7 @@ import grails.plugin.survey.Survey
 // import grails.plugin.survey.SurveyAnswer
 import grails.plugin.survey.SurveyQuestion
 import grails.plugin.survey.SurveyAssigned
+import grails.plugin.survey.ViewSurveyResults
 import grails.plugin.survey.ViewSurveyResultsByMunicipality
 
 class SurveyService {
@@ -23,15 +24,62 @@ class SurveyService {
   public static final String SURVEY_QUESTION_CATEGORY = 'SURVEY_QUESTION_CATEGORY'
 
   def chartCompetencySurveyResults(params) {
-println "chartCompetencySurveyResults(): ${params}"
+    println "chartCompetencySurveyResults(): ${params}"
 
-    if (params?.municipality) {
-      def municipality = GeographicBoundary.get(params.municipality)
+    def state, subdirection, municipality, educationalService, educationalControl, educationalArea
+
+    if (params?.params?.state) {
+      state = GeographicBoundary.get(params.params.state)
+      if (!state) {
+        log.error "Unable to retrive State: ${params.state}."
+        throw new RuntimeException("Unable to retrive State: ${params.state}.")
+      }
+      //println state.name
+    }
+
+    if (params?.params?.subdirection) {
+      subdirection = GeographicBoundary.get(params.params.subdirection)
+      if (!subdirection) {
+        log.error "Unable to retrive Subdirection: ${params.subdirection}."
+        throw new RuntimeException("Unable to retrive Subdirection: ${params.subdirection}.")
+      }
+      //println subdirection.name
+    }
+
+    if (params?.params?.municipality) {
+      municipality = GeographicBoundary.get(params.params.municipality)
       if (!municipality) {
         log.error "Unable to retrive Municipality: ${params.municipality}."
         throw new RuntimeException("Unable to retrive Municipality: ${params.municipality}.")
       }
-println municipality.name
+      //println municipality.name
+    }
+
+    if (params?.params?.educationalService) {
+      educationalService = Term.get(params.params.educationalService)
+      if (!educationalService) {
+        log.error "Unable to retrive Educational Service: ${params.params.educationalService}."
+        throw new RuntimeException("Unable to retrive Educational Service: ${params.educationalService}.")
+      }
+      //println educationalService.name
+    }
+
+    if (params?.params?.educationalControl) {
+      educationalControl = Term.get(params.params.educationalControl)
+      if (!educationalControl) {
+        log.error "Unable to retrive Educational Control: ${params.params.educationalControl}."
+        throw new RuntimeException("Unable to retrive Educational Control: ${params.educationalControl}.")
+      }
+      //println educationalControl.name
+    }
+
+    if (params?.params?.educationalArea) {
+      educationalArea = Term.get(params.params.educationalArea)
+      if (!educationalArea) {
+        log.error "Unable to retrive Educational Area: ${params.params.educationalArea}."
+        throw new RuntimeException("Unable to retrive Educational Area: ${params.educationalArea}.")
+      }
+      //println educationalArea.name
     }
 
     def survey = Survey.findByCode(NECESIDADES_CAPACITACION)
@@ -97,11 +145,56 @@ println municipality.name
     }
 
     def viewSurveyResultsByMunicipality
-    if (params.params.municipality) {
-      viewSurveyResultsByMunicipality = ViewSurveyResultsByMunicipality.findAllByMunicipalityId(params.params.municipality)
-    } else {
-      viewSurveyResultsByMunicipality = ViewSurveyResultsByMunicipality.list()
+    def sqlWhere = ''
+    def sqlWhereValues = [:]
+    if (state) {
+      sqlWhere = 'r.stateId = :stateId'
+      sqlWhereValues.put("stateId", state.id)
     }
+    if (subdirection) {
+      sqlWhere += ' and r.subdirectionId = :subdirectionId'
+      sqlWhereValues.put("subdirectionId", subdirection.id)
+    }
+    if (municipality) {
+      sqlWhere += ' and r.municipalityId = :municipalityId'
+      sqlWhereValues.put("municipalityId", municipality.id)
+    }
+    if (educationalService) {
+      if (sqlWhere != '') {
+        sqlWhere += ' and'
+      }
+      sqlWhere += ' r.serviceId = :serviceId'
+      sqlWhereValues.put("serviceId", educationalService.id)
+    }
+    if (educationalControl) {
+      if (sqlWhere != '') {
+        sqlWhere += ' and'
+      }
+      sqlWhere += ' r.controlId = :controlId'
+      sqlWhereValues.put("controlId", educationalControl.id)
+    }
+    if (educationalArea) {
+      if (sqlWhere != '') {
+        sqlWhere += ' and'
+      }
+      sqlWhere += ' r.areaId = :areaId'
+      sqlWhereValues.put("areaId", educationalArea.id)
+    }
+    println sqlWhere
+    println sqlWhereValues
+    if (sqlWhere.size() > 0) {
+      def sql = 'from ViewSurveyResults as r where ' + sqlWhere
+      viewSurveyResultsByMunicipality = ViewSurveyResults.findAll(sql, sqlWhereValues)
+    } else {
+      viewSurveyResultsByMunicipality = ViewSurveyResults.list()
+    }
+
+    //if (params.params.municipality) {
+    //  viewSurveyResultsByMunicipality = ViewSurveyResultsByMunicipality.findAllByMunicipalityId(params.params.municipality)
+    //} else {
+      //viewSurveyResultsByMunicipality = ViewSurveyResultsByMunicipality.list()
+      //viewSurveyResultsByMunicipality = ViewSurveyResults.list()
+    //}
     viewSurveyResultsByMunicipality.each { r->
       charts.category.zum[r.questionCategoryCode] += r.level
       charts.category.kount[r.questionCategoryCode]++

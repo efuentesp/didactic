@@ -1,15 +1,17 @@
 var dataCategories = [];
 var dataCompetencies = [];
 var dataIndicators = [];
-var url = '/didactic/jsonCompetencySummary';
+var URL = '/didactic/jsonCompetencySummary';
+var url = '';
 
 function getStreamData() {
 
-  var municipalityId = $('#municipalityId').val();
-  if (municipalityId) {
-    url = url + '?municipality=' + municipalityId
-  }
+  //var municipalityId = $('#municipalityId').val();
+  //if (municipalityId) {
+  //  url = url + '?municipality=' + municipalityId
+  //}
 
+  console.log(url);
   $.getJSON(url, function (json) {
  
 /*        var viewers = json.stream.viewers;
@@ -18,7 +20,7 @@ function getStreamData() {
             date: new Date(),
             viewers: viewers
         });*/
-console.log(json.indicator);
+    console.log(json.indicator);
     dataIndicators = json.indicator;
     $("#dev-indicators-chart").dxChart({
       dataSource: dataIndicators,
@@ -159,7 +161,7 @@ function getStates() {
 $( "#state" ).change(function() {
   //alert($(this).val());
   $('#subdirection').empty();
-  $('#subdirection').append("<option value=''>-- Seleccionar --</option>")
+  $('#subdirection').append("<option value=''>-- Todos --</option>")
   $.getJSON('/didactic/geographicBoundary/jsonSubdirections?state=' + $(this).val(), function (json) {
     json.forEach(function(subdirection) {
       //console.log(subdirection);
@@ -172,7 +174,7 @@ $( "#state" ).change(function() {
 $( "#subdirection" ).change(function() {
   //alert($(this).val());
   $('#municipality').empty();
-  $('#municipality').append("<option value=''>-- Seleccionar --</option>")
+  $('#municipality').append("<option value=''>-- Todos --</option>")
   $.getJSON('/didactic/geographicBoundary/jsonMunicipalities?subdirection=' + $(this).val(), function (json) {
     json.forEach(function(municipality) {
       //console.log(municipality);
@@ -228,6 +230,41 @@ $(document).ready(function () {
   getEducationalControls();
   getEducationalAreas();
 
+  //getStreamData();
+
+});
+
+$("#btnSearch").click(function() {
+  var state = $( "select#state" ).val();
+  var subdirection = $( "select#subdirection" ).val();
+  var municipality = $( "select#municipality" ).val();
+  var educationalService = $( "select#educationalService" ).val();
+  var educationalControl = $( "select#educationalControl" ).val();
+  var educationalArea = $( "select#educationalArea" ).val();
+
+  var params = new Object();
+  params['state'] = state;
+  params['subdirection'] = subdirection;
+  params['municipality'] = municipality;
+  params['educationalService'] = educationalService;
+  params['educationalControl'] = educationalControl;
+  params['educationalArea'] = educationalArea;
+
+  var urlParams = ''
+  for (var k in params) {
+    // use hasOwnProperty to filter out keys from the Object.prototype
+    if (params.hasOwnProperty(k) && params[k]>0) {
+      //alert('key is: ' + k + ', value is: ' + params[k]);
+      if (urlParams == '') {
+        urlParams += '?';
+      } else {
+        urlParams += '&';
+      }
+      urlParams = urlParams + k + '=' + params[k];
+    }
+  }
+  //console.log(urlParams);
+  url = URL + urlParams;
   getStreamData();
 
 });
